@@ -40,8 +40,8 @@
 package org.glassfish.javaee.javascript.backend.todo;
 
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 public class DefaultToDoItemRepository implements ToDoItemRepository {
 
