@@ -3,28 +3,18 @@
     xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
     version="3.0">
     
-    <persistence-unit name="your-persistence-unit-name">
-        <class>org.glassfish.javaee.javascript.backend.todo.ToDoItem</class>
+    <persistence-unit name="TodoAppDatabase">
+        <jta-data-source>java:app/jdbc/TodoAppDatabase</jta-data-source>
+        <shared-cache-mode>ALL</shared-cache-mode>
         <!-- Add other classes here -->
         <properties>
-            <!-- JDBC connection properties -->
-            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/your_database"/>
-            <property name="jakarta.persistence.jdbc.user" value="your_username"/>
-            <property name="jakarta.persistence.jdbc.password" value="your_password"/>
-
-            <!-- Hibernate properties -->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.format_sql" value="true"/>
-
             <!-- Schema generation scripts -->
+            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create" />
             <property name="jakarta.persistence.schema-generation.create-source" value="metadata"/>
             <property name="jakarta.persistence.schema-generation.drop-source" value="metadata"/>
-            <property name="jakarta.persistence.schema-generation.create-script-source" value="META-INF/create-script.sql"/>
-            <property name="jakarta.persistence.schema-generation.drop-script-source" value="META-INF/drop-script.sql"/>
-            <property name="jakarta.persistence.sql-load-script-source" value="META-INF/load-script.sql"/>
+            <property name="jakarta.persistence.schema-generation.create-script-source" value="h2/create-script.sql"/>
+            <property name="jakarta.persistence.schema-generation.drop-script-source" value="h2/drop-script.sql"/>
+            <property name="jakarta.persistence.sql-load-script-source" value="h2/load-script.sql"/>
         </properties>
     </persistence-unit>
 </persistence>

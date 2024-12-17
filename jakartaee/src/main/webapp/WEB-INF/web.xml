@@ -4,5 +4,13 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
              http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    <!-- Removed security constraints -->
+    <data-source>
+    <name>java:app/jdbc/TodoAppDatabase</name>
+    <class-name>${db.driverClass}</class-name>
+    <url>${db.jdbcUrl}</url>
+    <user>${db.user}</user>
+    <password>${db.password}</password>
+    <max-pool-size>32</max-pool-size>
+    <min-pool-size>2</min-pool-size>
+  </data-source>
 </web-app>
