@@ -41,11 +41,11 @@
  */
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.glassfish</groupId>
+    <groupId>com.azure</groupId>
     <artifactId>javaee-javascript</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -55,28 +55,52 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
+
+        <!-- jakarta.jakartaee-api version-->
+        <version.jakarta.jakartaee.api>10.0.0</version.jakarta.jakartaee.api>
+
+        <!-- JBoss dependency versions -->
+        <version.wildfly.maven.plugin>5.0.1.Final</version.wildfly.maven.plugin>
+        <version.wildfly.bom>34.0.1.Final</version.wildfly.bom>
+
+        <!-- other plugin versions -->
+        <version.compiler.plugin>3.13.0</version.compiler.plugin>
+        <version.war.plugin>3.4.0</version.war.plugin>
+        <version.maven.resources.plugin>3.3.1</version.maven.resources.plugin>
+
+        <!-- maven-compiler-plugin -->
+        <maven.compiler.release>17</maven.compiler.release>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.wildfly.bom</groupId>
+                <artifactId>wildfly-ee-with-tools</artifactId>
+                <version>${version.wildfly.bom}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>${version.jakarta.jakartaee.api}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet-core</artifactId>
-            <version>2.0</version>
-            <type>jar</type>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jackson2-provider</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <!-- Import the CDI API, we use provided scope as the API is included in WildFly -->
         <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-moxy</artifactId>
-            <version>2.2</version>
-            <type>jar</type>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -87,24 +111,43 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    <compilerArguments>
-                        <endorseddirs>${endorsed.dir}</endorseddirs>
-                    </compilerArguments>
-                </configuration>
+                <version>${version.compiler.plugin}</version>
+                <configuration></configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${version.maven.resources.plugin}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
+                <version>${version.war.plugin}</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
                 </configuration>
+            </plugin>
+            <!-- The WildFly plugin deploys your war to a local JBoss AS container -->
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>${version.wildfly.maven.plugin}</version>
+                <configuration>
+                    <discover-provisioning-info>
+                        <addOns>
+                            <addOn>postgresql:default</addOn>
+                        </addOns>
+                    </discover-provisioning-info>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
-
 </project>
