@@ -37,7 +37,7 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.glassfish.javaee.javascript.backend.todo;
+package com.azure.samples.todo;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -45,7 +45,6 @@ import java.util.Map;
 import java.util.Set;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
-import org.glassfish.jersey.server.ServerProperties;
 
 @ApplicationPath("resources")
 public class RestConfiguration extends Application {
@@ -57,15 +56,8 @@ public class RestConfiguration extends Application {
         return resources;
     }
 
-    @Override
-    public Map<String, Object> getProperties() {
-        Map<String, Object> properties = new HashMap();
-        properties.put(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true);
-        return properties;
-    }
-
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(org.glassfish.javaee.javascript.backend.todo.JsonMoxyConfigurationContextResolver.class);
-        resources.add(org.glassfish.javaee.javascript.backend.todo.ToDoResource.class);
+        resources.add(com.azure.samples.todo.JacksonConfig.class);
+        resources.add(com.azure.samples.todo.ToDoResource.class);
     }
 }

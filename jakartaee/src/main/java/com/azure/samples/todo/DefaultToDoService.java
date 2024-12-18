@@ -37,7 +37,7 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.glassfish.javaee.javascript.backend.todo;
+package com.azure.samples.todo;
 
 import java.util.List;
 import java.util.logging.Level;

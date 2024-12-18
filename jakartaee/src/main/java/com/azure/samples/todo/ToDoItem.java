@@ -37,11 +37,12 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package org.glassfish.javaee.javascript.backend.todo;
+package com.azure.samples.todo;
 
 import java.io.Serializable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
@@ -51,7 +52,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(name = "todo_item")
+@Table(name = "ToDoItem")
 @NamedQuery(
         name = "ToDoItem.findByUsername",
         query = "SELECT i FROM ToDoItem i WHERE i.username = :username")
@@ -61,7 +62,7 @@ public class ToDoItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;

@@ -45,7 +45,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.glassfish</groupId>
+    <groupId>com.azure</groupId>
     <artifactId>javaee-javascript</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -55,28 +55,52 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
+
+        <!-- jakarta.jakartaee-api version-->
+        <version.jakarta.jakartaee.api>10.0.0</version.jakarta.jakartaee.api>
+
+        <!-- JBoss dependency versions -->
+        <version.wildfly.maven.plugin>5.0.1.Final</version.wildfly.maven.plugin>
+        <version.wildfly.bom>34.0.1.Final</version.wildfly.bom>
+
+        <!-- other plugin versions -->
+        <version.compiler.plugin>3.13.0</version.compiler.plugin>
+        <version.war.plugin>3.4.0</version.war.plugin>
+        <version.maven.resources.plugin>3.3.1</version.maven.resources.plugin>
+
+        <!-- maven-compiler-plugin -->
+        <maven.compiler.release>17</maven.compiler.release>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.wildfly.bom</groupId>
+                <artifactId>wildfly-ee-with-tools</artifactId>
+                <version>${version.wildfly.bom}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
-            <version>10.0.0</version>
+            <version>${version.jakarta.jakartaee.api}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet-core</artifactId>
-            <version>3.0.0</version>
-            <type>jar</type>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jackson2-provider</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <!-- Import the CDI API, we use provided scope as the API is included in WildFly -->
         <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-moxy</artifactId>
-            <version>3.0.0</version>
-            <type>jar</type>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -87,111 +111,43 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>${version.compiler.plugin}</version>
+                <configuration></configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>${version.maven.resources.plugin}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.4.0</version>
+                <version>${version.war.plugin}</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
                 </configuration>
             </plugin>
+            <!-- The WildFly plugin deploys your war to a local JBoss AS container -->
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>${version.wildfly.maven.plugin}</version>
+                <configuration>
+                    <discover-provisioning-info>
+                        <addOns>
+                            <addOn>postgresql:default</addOn>
+                        </addOns>
+                    </discover-provisioning-info>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-    <profiles>
-        <!-- The currently supported application servers are represented as profiles -->
-        <profile>
-            <id>payara</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <payara.version>6.2024.6</payara.version>
-                <db.driverClass>org.h2.jdbcx.JdbcDataSource</db.driverClass>
-                <!-- H2 file engine requires an absolute path, eg. ~/name, ./name or a
-                full-qualified 
-        path name (it should include driver name under Windows). -->
-                <db.jdbcUrl>jdbc:h2:file:./todo-app-data/todo-app-database</db.jdbcUrl>
-                <db.user />
-                <db.password />
-            </properties>
-            <dependencies>
-                <!-- We need a Jersey specific dependency for property name constants -->
-                <dependency>
-                    <groupId>org.glassfish.jersey.core</groupId>
-                    <artifactId>jersey-server</artifactId>
-                    <version>3.1.2</version>
-                    <scope>provided</scope>
-                </dependency>
-                <!-- Embedding the JDBC driver in the WAR works in Payara -->
-                <dependency>
-                    <groupId>com.h2database</groupId>
-                    <artifactId>h2</artifactId>
-                    <version>2.2.224</version>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>fish.payara.extras</groupId>
-                    <artifactId>payara-micro</artifactId>
-                    <version>${payara.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <!-- Payara Micro Managed Container Adapter -->
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>arquillian-payara-micro-managed</artifactId>
-                    <version>3.0.alpha8</version>
-                    <scope>test</scope>
-                </dependency>
-                <!-- Needed at the moment for Jakarta EE 10 support -->
-                <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>payara-client-ee9</artifactId>
-                    <version>3.0.alpha8</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>3.1.2</version>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.cargo</groupId>
-                        <artifactId>cargo-maven3-plugin</artifactId>
-                        <version>1.10.9</version>
-                        <configuration>
-                            <container>
-                                <containerId>payara</containerId>
-                                <artifactInstaller>
-                                    <groupId>fish.payara.distributions</groupId>
-                                    <artifactId>payara</artifactId>
-                                    <version>${payara.version}</version>
-                                </artifactInstaller>
-                                <timeout>180000</timeout>
-                            </container>
-                            <configuration>
-                                <type>standalone</type>
-                                <properties>
-                                    <cargo.servlet.port>8080</cargo.servlet.port>
-                                    <cargo.payara.admin.port>4848</cargo.payara.admin.port>
-                                    <cargo.payara.admin.user>admin</cargo.payara.admin.user>
-                                    <cargo.payara.admin.password>admin</cargo.payara.admin.password>
-                                </properties>
-                            </configuration>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
