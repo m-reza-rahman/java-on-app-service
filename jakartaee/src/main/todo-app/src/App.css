@@ -1,0 +1,51 @@
+.center {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+#todo-panel {
+  width: 400px;
+}
+
+.todo-label {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.textbox {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+}
+
+.hidden {
+  display: none;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+.item-count-label {
+  margin-top: 20px;
+}
+
+.todo-item-remove-button {
+  position: absolute;
+  right: 0;
+  top: 12px;
+}
+
+.todo-item-remove-icon {
+  /*
+  Delete icon courtesy of The Noun Project:
+  http://thenounproject.com/noun/delete/
+  */
+  background: url(/remove.png) no-repeat;
+  display: block;
+  height: 16px;
+  opacity: 0.5;
+  width: 23px;
+  visibility: hidden;
+}
