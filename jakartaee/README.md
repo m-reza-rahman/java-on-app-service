@@ -39,7 +39,7 @@ Go to http://localhost:8080/javaee-javascript/
 Rest API:
 
 ```bash
-curl -v -X POST http://localhost:8080/javaee-javascript/resources/todo/galia -H "Content-Type: application/json" -d '
+curl -v -X POST http://localhost:8080/javaee-javascript/resources/todo/Galia -H "Content-Type: application/json" -d '
 {
 "description": "Test REST",
 "completed": "true"

@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="css/lib/angular-growl.min.css">
         <script src="javascript/lib/angular-growl.min.js"></script>
         <script type="text/javascript">
-            var principal = '${pageContext.request.userPrincipal.name}';
+            var principal = "Galia";
         </script>
         <script src="javascript/todo/controllers.js"></script>
         <script src="javascript/todo/services.js"></script>
@@ -23,7 +23,7 @@
         <div style="float: right" growl></div>
         <div class="center">
             <div id="todo-panel">
-                <label class="todo-label" for="add-todo">{{user}}'s To Do List</label>
+                <label class="todo-label" for="add-todo">Galia's To Do List</label>
                 <form ng-submit="addItem()">
                     <input id="add-todo" class="textbox"
                            placeholder="Buy milk" ng-model="newToDoDescription"
