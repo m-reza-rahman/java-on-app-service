@@ -9,7 +9,7 @@
     "react-app-rewired": "^2.2.1",
     "react-dom": "^19.0.0",
     "react-scripts": "^3.0.1",
-    "react-toastify": "^11.0.1"
+    "react-toastify": "^11.0.2"
   },
   "scripts": {
     "start": "react-app-rewired start",

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TodoList from './components/TodoList';
 import ToDoService from './utils/ToDoService';
-import { toast } from 'react-toastify';
+import {ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
@@ -89,8 +89,7 @@ const ToDoApp = () => {
             onChange={(e) => setNewToDoDescription(e.target.value)}
             required
           />
-        </form>
-        <toast />
+        </form>        
         {items.length > 0 && (
           <div>
             <TodoList
@@ -107,6 +106,7 @@ const ToDoApp = () => {
           </div>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 };
