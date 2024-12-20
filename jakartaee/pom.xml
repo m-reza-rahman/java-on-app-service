@@ -25,6 +25,8 @@
         <!--Use
         JUnit 5 here - the WildFly bom still brings 4.x -->
         <version.junit5>5.10.1</version.junit5>
+        <version.mockito>3.12.4</version.mockito>
+        <version.rest-assured>4.4.0</version.rest-assured>
 
         <!-- other plugin versions -->
         <version.compiler.plugin>3.13.0</version.compiler.plugin>
@@ -90,7 +92,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>3.12.4</version>
+            <version>${version.mockito}</version>
             <scope>test</scope>
         </dependency>
 
@@ -98,7 +100,6 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.8.1</version>
             <scope>test</scope>
         </dependency>
 
@@ -106,7 +107,7 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>4.4.0</version>
+            <version>${version.rest-assured}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -186,6 +187,19 @@
                         </resource>
                     </webResources>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <!-- The WildFly plugin deploys your war to a local JBoss AS container -->
             <plugin>
