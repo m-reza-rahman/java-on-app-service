@@ -4,55 +4,87 @@
   margin-top: 50px;
 }
 
-#todo-panel {
-  width: 400px;
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
 }
 
 .todo-label {
-  font-size: 1.5em;
-  font-weight: bold;
-}
-
-.textbox {
-  width: 100%;
-  padding: 10px;
-  font-size: 1em;
-}
-
-.hidden {
-  display: none;
-}
-
-.completed {
-  text-decoration: line-through;
-}
-
-.item-count-label {
+  font-family: 'Arial', sans-serif;
+  font-size: 2em;
+  color: #333;
+  text-align: center;
   margin-top: 20px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin: 10px 0;
 }
 
 .todo-item-container {
   display: flex;
   align-items: center;
-  position: relative;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.todo-item-container:hover {
+  background-color: #e9e9e9;
+}
+
+.todo-checkbox {
+  margin-right: 10px;
+}
+
+.todo-description {
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.todo-description.completed {
+  text-decoration: line-through;
+  color: #888;
 }
 
 .todo-item-remove-button {
-  margin-left: 10px;
+  margin-left: 5px;
   background: none;
   border: none;
   cursor: pointer;
-  display: none; /* Initially hide the button */
+  display: none;
 }
 
 .todo-item-container:hover .todo-item-remove-button {
-  display: block; /* Show the button when the container is hovered */
+  display: block;
 }
 
 .todo-item-remove-icon {
-  background-image: url(/remove.png);
-  background-size: cover;
   height: 16px;
   opacity: 0.5;
   width: 23px;
+  background-image: url('/remove.png'); /* Replace with your image path */
+  background-size: cover;
+}
+
+.textbox {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.hidden {
+  display: none;
 }

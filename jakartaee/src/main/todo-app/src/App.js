@@ -70,7 +70,7 @@ const ToDoApp = () => {
   return (
     <div className="center">
       <div id="todo-panel">
-        <label className="todo-label" htmlFor="add-todo">Galia's To Do List</label>
+      <label className="todo-label" htmlFor="add-todo">Galia's To Do List</label>
         <form onSubmit={addItem}>
           <input
             id="add-todo"
@@ -143,19 +143,18 @@ const ToDoItem = ({ item, itemToEdit, editItem, commitEditItem, revertEditing, r
   
   return (
     <li>
-      <div className={`todo-item-container ${item === itemToEdit ? 'hidden' : ''}`}>
+      <div className="todo-item-container">
         <input
           type="checkbox"
           checked={completed}
           onChange={handleCheckboxChange}
+          className="todo-checkbox"
         />
         <span
-          className={item.completed ? 'completed' : ''}
+          className={`todo-description ${completed ? 'completed' : ''}`}
           onDoubleClick={() => editItem(item)}
-          onMouseEnter={(e) => e.target.style.backgroundColor = 'lightgray'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = ''}
         >
-          {item.description}
+          {description}
         </span>
         <button 
           className="todo-item-remove-button todo-item-remove-icon"
