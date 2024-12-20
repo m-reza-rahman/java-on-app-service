@@ -9,7 +9,6 @@ const ToDoApp = () => {
   const [items, setItems] = useState([]);
   const [newToDoDescription, setNewToDoDescription] = useState('');
   const [itemToEdit, setItemToEdit] = useState(null);
-  const [itemBackup, setItemBackup] = useState(null);
   const [userId] = useState('Galia'); // The user ID (could be dynamic or fetched)
 
   useEffect(() => {
@@ -41,7 +40,6 @@ const ToDoApp = () => {
 
   const editItem = (item) => {
     setItemToEdit(item);
-    setItemBackup(item);
   };
 
   // Show error message on failure (replace with appropriate error handling)
@@ -57,10 +55,7 @@ const ToDoApp = () => {
       });
   };
 
-  const revertEditing = (item) => {
-    const index = items.indexOf(item);
-    items[index] = itemBackup;
-    setItems([...items]);
+  const revertEditing = () => {
     setItemToEdit(null);
   };
 

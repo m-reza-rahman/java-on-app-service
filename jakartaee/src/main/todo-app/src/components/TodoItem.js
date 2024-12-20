@@ -26,8 +26,9 @@ function TodoItem({ item, itemToEdit, editItem, commitEditItem, revertEditing, r
 
   const handleKeyDown = (e) => {
     if (e.key === 'Escape') {
-      revertEditing(item);
+      e.stopPropagation(); // Stop the event from propagating
       e.preventDefault();
+      revertEditing();
     }
     else if (e.key === 'Enter') {
       item.description = description;
