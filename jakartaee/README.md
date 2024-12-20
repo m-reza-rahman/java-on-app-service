@@ -6,7 +6,6 @@ The simplest steps are the following (no IDE required):
 * Ensure you are running Java SE 17.
 * Make sure JAVA_HOME is set.
 
-
 Start PostgreSQL database in a container with:
 
 ```bash
@@ -34,17 +33,17 @@ export POSTGRESQL_DATABASE=todoapp_db
 ./target/server/bin/standalone.sh
 ```
 
-Go to http://localhost:8080/javaee-javascript/
+Go to http://localhost:8080/
 
 Rest API:
 
 ```bash
-curl -v -X POST http://localhost:8080/javaee-javascript/resources/todo/galia -H "Content-Type: application/json" -d '
+curl -v -X POST http://localhost:8080/resources/todo/Galia -H "Content-Type: application/json" -d '
 {
 "description": "Test REST",
 "completed": "true"
 }'
 
-curl http://localhost:8080/javaee-javascript/resources/todo/galia
+curl http://localhost:8080/resources/todo/Galia
 ```
 
