@@ -44,6 +44,6 @@ curl -v -X POST http://localhost:8080/resources/todo/Galia -H "Content-Type: app
 "completed": "true"
 }'
 
-curl http://localhost:8080/resources/todo/galia
+curl http://localhost:8080/resources/todo/Galia
 ```
 
