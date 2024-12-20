@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ToDoService } from './ToDoService';  // Import the ToDoService
+import { toast } from 'react-toastify'; // Import the toast function for notifications
 import './App.css';
 
 const ToDoApp = () => {
@@ -28,8 +29,10 @@ const ToDoApp = () => {
       .then(response => {
         setItems([...items, response.data]);
         setNewToDoDescription('');
+        toast.success('Item added successfully!');  // Show success toast
       })
       .catch(error => {
+        toast.error('Error adding item:', error);  // Show success toast
         console.error('Error adding item:', error);
       });    
   };
@@ -44,8 +47,10 @@ const ToDoApp = () => {
     ToDoService.updateItem(userId, item.id, item)
       .then(() => {
         setItemToEdit(null);
+        toast.success('Item updated successfully!');
       })
       .catch(error => {
+        toast.error('Error updating item:', error);
         console.error('Error updating item:', error);
       });
   };
@@ -61,8 +66,10 @@ const ToDoApp = () => {
     ToDoService.removeItem(userId, item.id)
       .then(() => {
         setItems(items.filter(i => i !== item));
+        toast.success('Item removed successfully!');
       })
       .catch(error => {
+        toast.error('Error removing item:', error);
         console.error('Error removing item:', error);
       });
   };
