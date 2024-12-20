@@ -143,7 +143,7 @@ const ToDoItem = ({ item, itemToEdit, editItem, commitEditItem, revertEditing, r
   
   return (
     <li>
-      <div className={item === itemToEdit ? 'hidden' : ''}>
+      <div className={`todo-item-container ${item === itemToEdit ? 'hidden' : ''}`}>
         <input
           type="checkbox"
           checked={completed}

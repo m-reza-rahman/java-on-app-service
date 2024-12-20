@@ -31,21 +31,28 @@
   margin-top: 20px;
 }
 
+.todo-item-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
 .todo-item-remove-button {
-  position: absolute;
-  right: 0;
-  top: 12px;
+  margin-left: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none; /* Initially hide the button */
+}
+
+.todo-item-container:hover .todo-item-remove-button {
+  display: block; /* Show the button when the container is hovered */
 }
 
 .todo-item-remove-icon {
-  /*
-  Delete icon courtesy of The Noun Project:
-  http://thenounproject.com/noun/delete/
-  */
-  background: url(/remove.png) no-repeat;
-  display: block;
+  background-image: url(/remove.png);
+  background-size: cover;
   height: 16px;
   opacity: 0.5;
   width: 23px;
-  visibility: hidden;
 }
