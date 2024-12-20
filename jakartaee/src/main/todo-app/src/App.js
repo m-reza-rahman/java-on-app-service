@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { ToDoService } from './ToDoService';  // Import the ToDoService
-import { toast } from 'react-toastify'; // Import the toast function for notifications
+import TodoList from './components/TodoList';
+import ToDoService from './utils/ToDoService';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 const ToDoApp = () => {
@@ -34,7 +36,7 @@ const ToDoApp = () => {
       .catch(error => {
         toast.error('Error adding item:', error);  // Show success toast
         console.error('Error adding item:', error);
-      });    
+      });
   };
 
   const editItem = (item) => {
@@ -77,7 +79,7 @@ const ToDoApp = () => {
   return (
     <div className="center">
       <div id="todo-panel">
-      <label className="todo-label" htmlFor="add-todo">Galia's To Do List</label>
+        <label className="todo-label" htmlFor="add-todo">Galia's To Do List</label>
         <form onSubmit={addItem}>
           <input
             id="add-todo"
@@ -88,21 +90,17 @@ const ToDoApp = () => {
             required
           />
         </form>
+        <toast />
         {items.length > 0 && (
           <div>
-            <ul id="todo-list">
-              {items.map((item, index) => (
-                <ToDoItem
-                  key={index}
-                  item={item}
-                  itemToEdit={itemToEdit}
-                  editItem={editItem}
-                  commitEditItem={commitEditItem}
-                  revertEditing={revertEditing}
-                  removeItem={removeItem}
-                />
-              ))}
-            </ul>
+            <TodoList
+              items={items}
+              itemToEdit={itemToEdit}
+              editItem={editItem}
+              commitEditItem={commitEditItem}
+              revertEditing={revertEditing}
+              removeItem={removeItem}
+            />
             <span className="item-count-label">
               <strong>{items.length}</strong> {items.length === 1 ? 'item' : 'items'} on your list
             </span>
@@ -110,82 +108,6 @@ const ToDoApp = () => {
         )}
       </div>
     </div>
-  );
-};
-
-const ToDoItem = ({ item, itemToEdit, editItem, commitEditItem, revertEditing, removeItem }) => {
-  const [description, setDescription] = useState(item.description);
-  const [completed, setCompleted] = useState(item.completed);
-
-  useEffect(() => {
-    setDescription(item.description);
-    setCompleted(item.completed);
-  }, [item]);
-
-  const handleInputChange = (e) => {
-    setDescription(e.target.value);
-  };
-
-  const handleCheckboxChange = (e) => {
-    setCompleted(e.target.checked);
-    item.completed = e.target.checked;
-    commitEditItem(item);
-  };
-
-  const handleBlur = () => {
-    item.description = description;
-    commitEditItem(item);
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Escape') {
-      revertEditing(item);
-      e.preventDefault();
-    }
-    else if (e.key === 'Enter') {
-      item.description = description;
-      commitEditItem(item);
-    }
-  };
-  
-  return (
-    <li>
-      <div className="todo-item-container">
-        <input
-          type="checkbox"
-          checked={completed}
-          onChange={handleCheckboxChange}
-          className="todo-checkbox"
-        />
-        <span
-          className={`todo-description ${completed ? 'completed' : ''}`}
-          onDoubleClick={() => editItem(item)}
-        >
-          {description}
-        </span>
-        <button 
-          className="todo-item-remove-button todo-item-remove-icon"
-          title="Remove this item"
-          onClick={() => removeItem(item)}
-        >
-        </button>
-      </div>
-      <div className={item !== itemToEdit ? 'hidden' : ''}>
-        <form
-          onSubmit={() => commitEditItem(item)}
-        >
-          <input
-            type="text"
-            className="textbox"
-            value={description}
-            onBlur={handleBlur}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-            required
-          />
-        </form>
-      </div>
-    </li>
   );
 };
 

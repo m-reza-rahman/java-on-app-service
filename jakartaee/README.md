@@ -6,7 +6,6 @@ The simplest steps are the following (no IDE required):
 * Ensure you are running Java SE 17.
 * Make sure JAVA_HOME is set.
 
-
 Start PostgreSQL database in a container with:
 
 ```bash
