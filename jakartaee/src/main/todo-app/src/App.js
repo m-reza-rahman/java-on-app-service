@@ -6,6 +6,7 @@ const ToDoApp = () => {
   const [items, setItems] = useState([]);
   const [newToDoDescription, setNewToDoDescription] = useState('');
   const [itemToEdit, setItemToEdit] = useState(null);
+  const [itemBackup, setItemBackup] = useState(null);
   const [userId] = useState('Galia'); // The user ID (could be dynamic or fetched)
 
   useEffect(() => {
@@ -35,6 +36,7 @@ const ToDoApp = () => {
 
   const editItem = (item) => {
     setItemToEdit(item);
+    setItemBackup(item);
   };
 
   // Show error message on failure (replace with appropriate error handling)
@@ -49,6 +51,9 @@ const ToDoApp = () => {
   };
 
   const revertEditing = (item) => {
+    const index = items.indexOf(item);
+    items[index] = itemBackup;
+    setItems([...items]);
     setItemToEdit(null);
   };
 
@@ -102,29 +107,61 @@ const ToDoApp = () => {
 };
 
 const ToDoItem = ({ item, itemToEdit, editItem, commitEditItem, revertEditing, removeItem }) => {
+  const [description, setDescription] = useState(item.description);
+  const [completed, setCompleted] = useState(item.completed);
+
+  useEffect(() => {
+    setDescription(item.description);
+    setCompleted(item.completed);
+  }, [item]);
+
+  const handleInputChange = (e) => {
+    setDescription(e.target.value);
+  };
+
+  const handleCheckboxChange = (e) => {
+    setCompleted(e.target.checked);
+    item.completed = e.target.checked;
+    commitEditItem(item);
+  };
+
+  const handleBlur = () => {
+    item.description = description;
+    commitEditItem(item);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Escape') {
+      revertEditing(item);
+      e.preventDefault();
+    }
+    else if (e.key === 'Enter') {
+      item.description = description;
+      commitEditItem(item);
+    }
+  };
+  
   return (
     <li>
       <div className={item === itemToEdit ? 'hidden' : ''}>
         <input
           type="checkbox"
-          checked={item.completed}
-          onChange={() => {
-            item.completed = !item.completed;
-            commitEditItem(item);
-          }}
+          checked={completed}
+          onChange={handleCheckboxChange}
         />
         <span
           className={item.completed ? 'completed' : ''}
           onDoubleClick={() => editItem(item)}
+          onMouseEnter={(e) => e.target.style.backgroundColor = 'lightgray'}
+          onMouseLeave={(e) => e.target.style.backgroundColor = ''}
         >
           {item.description}
         </span>
         <button 
-          className="todo-item-remove-button"
+          className="todo-item-remove-button todo-item-remove-icon"
           title="Remove this item"
           onClick={() => removeItem(item)}
         >
-          <span className="todo-item-remove-icon"></span>
         </button>
       </div>
       <div className={item !== itemToEdit ? 'hidden' : ''}>
@@ -134,9 +171,10 @@ const ToDoItem = ({ item, itemToEdit, editItem, commitEditItem, revertEditing, r
           <input
             type="text"
             className="textbox"
-            value={item.description}
-            onBlur={() => commitEditItem(item)}
-            onChange={(e) => (item.description = e.target.value)}
+            value={description}
+            onBlur={handleBlur}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
             required
           />
         </form>
