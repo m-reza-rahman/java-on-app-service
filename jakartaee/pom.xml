@@ -4,40 +4,29 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.azure.jakartaee</groupId>
-    <artifactId>todo-app-react</artifactId>
+    <groupId>com.azure.samples</groupId>
+    <artifactId>todo</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>todo-app-react</name>
+    <name>Simple To Do Application</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- jakarta.jakartaee-api version-->
         <version.jakarta.jakartaee.api>10.0.0</version.jakarta.jakartaee.api>
 
-        <!-- JBoss dependency versions -->
         <version.wildfly.maven.plugin>5.0.1.Final</version.wildfly.maven.plugin>
         <version.wildfly.bom>34.0.1.Final</version.wildfly.bom>
 
-        <!--Use
-        JUnit 5 here - the WildFly bom still brings 4.x -->
-        <version.junit5>5.10.1</version.junit5>
-        <version.mockito>3.12.4</version.mockito>
-        <version.rest-assured>4.4.0</version.rest-assured>
-
-        <!-- other plugin versions -->
         <version.compiler.plugin>3.13.0</version.compiler.plugin>
         <version.war.plugin>3.4.0</version.war.plugin>
         <version.maven.resources.plugin>3.3.1</version.maven.resources.plugin>
         <version.frontend.maven.plugin>1.15.1</version.frontend.maven.plugin>
 
-        <!-- Node.js versions -->
         <version.node>v20.17.0</version.node>
 
-        <!-- maven-compiler-plugin -->
         <maven.compiler.release>17</maven.compiler.release>
     </properties>
 
@@ -47,15 +36,6 @@
                 <groupId>org.wildfly.bom</groupId>
                 <artifactId>wildfly-ee-with-tools</artifactId>
                 <version>${version.wildfly.bom}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!--Define
-            the JUnit5 bom. WildFly BOM still contains JUnit4, so we have to declare a version here -->
-            <dependency>
-                <groupId>org.junit</groupId>
-                <artifactId>junit-bom</artifactId>
-                <version>${version.junit5}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -81,39 +61,10 @@
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <!-- Test scope dependencies -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-junit-jupiter</artifactId>
-            <version>${version.mockito}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- JUnit 5 dependency -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- RestAssured dependency -->
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>${version.rest-assured}</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
-        <finalName>todo-app</finalName>
+        <finalName>todo</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -172,7 +123,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <workingDirectory>src/main/todo-app</workingDirectory>
+                    <workingDirectory>src/main/todo</workingDirectory>
                     <nodeVersion>${version.node}</nodeVersion>
                 </configuration>
             </plugin>
@@ -183,23 +134,10 @@
                 <configuration>
                     <webResources>
                         <resource>
-                            <directory>${project.basedir}/src/main/todo-app/build</directory>
+                            <directory>${project.basedir}/src/main/todo/build</directory>
                         </resource>
                     </webResources>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.0.0-M5</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <!-- The WildFly plugin deploys your war to a local JBoss AS container -->
             <plugin>
