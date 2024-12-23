@@ -25,11 +25,10 @@ public class DefaultToDoItemRepository implements ToDoItemRepository {
     }
 
     @Override
-    public List<ToDoItem> findByUsername(String username) {
+    public List<ToDoItem> findAll() {
         return entityManager.createNamedQuery(
-                "ToDoItem.findByUsername",
-                ToDoItem.class)
-                .setParameter("username", username).getResultList();
+                "ToDoItem.findAll", ToDoItem.class)
+                .getResultList();
     }
 
     @Override

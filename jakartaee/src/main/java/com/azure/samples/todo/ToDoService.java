@@ -3,12 +3,11 @@ package com.azure.samples.todo;
 import java.util.List;
 
 public interface ToDoService {
+    ToDoItem addToDoItem(ToDoItem item);
 
-    ToDoItem addToDoItem(String username, ToDoItem item);
+    List<ToDoItem> findAllToDoItems();
 
-    List<ToDoItem> findToDoItemsByUsername(String username);
+    void removeToDoItem(Long id);
 
-    void removeToDoItem(String username, Long id);
-
-    void updateToDoItem(String username, ToDoItem item);
+    void updateToDoItem(ToDoItem item);
 }

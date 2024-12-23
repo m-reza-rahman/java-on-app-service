@@ -6,8 +6,6 @@ import java.util.List;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -17,10 +15,9 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 
-@Path("/todo/{username}")
+@Path("/todo")
 @ApplicationScoped
 public class ToDoResource implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @Inject
@@ -29,43 +26,29 @@ public class ToDoResource implements Serializable {
     @POST
     @Consumes({"application/json"})
     @Produces({"application/json"})
-    public ToDoItem create(
-            @PathParam("username")
-            @NotNull
-            @Size(min = 4, max = 14, message = "User name must be between 4 and 14 characters.") String username,
-            @Valid ToDoItem item) {
-        return service.addToDoItem(username, item);
+    public ToDoItem create(@Valid ToDoItem item) {
+        return service.addToDoItem(item);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({"application/json"})
     public void edit(
-            @PathParam("username")
-            @NotNull
-            @Size(min = 4, max = 14, message = "User name must be between 4 and 14 characters.") String username,
             @PathParam("id") Long id,
             @Valid ToDoItem item) {
         item.setId(id);
-        service.updateToDoItem(username, item);
+        service.updateToDoItem(item);
     }
 
     @DELETE
     @Path("{id}")
-    public void remove(
-            @PathParam("username")
-            @NotNull
-            @Size(min = 4, max = 14, message = "User name must be between 4 and 14 characters.") String username,
-            @PathParam("id") Long id) {
-        service.removeToDoItem(username, id);
+    public void remove(@PathParam("id") Long id) {
+        service.removeToDoItem(id);
     }
 
     @GET
     @Produces({"application/json"})
-    public List<ToDoItem> getAll(
-            @PathParam("username")
-            @NotNull
-            @Size(min = 4, max = 14, message = "User name must be between 4 and 14 characters.") String username) {
-        return service.findToDoItemsByUsername(username);
+    public List<ToDoItem> getAll() {
+        return service.findAllToDoItems();
     }
 }

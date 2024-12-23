@@ -9,7 +9,6 @@ import jakarta.inject.Inject;
 
 @Stateless
 public class DefaultToDoService implements ToDoService {
-
     private static final Logger logger = Logger
             .getLogger(DefaultToDoService.class.getName());
 
@@ -17,25 +16,21 @@ public class DefaultToDoService implements ToDoService {
     private ToDoItemRepository repository;
 
     @Override
-    public ToDoItem addToDoItem(String username, ToDoItem item) {
-        item.setUsername(username);
-
+    public ToDoItem addToDoItem(ToDoItem item) {
         logger.log(Level.INFO, "Adding item: {0}", item);
 
         return repository.create(item);
     }
 
     @Override
-    public void updateToDoItem(String username, ToDoItem item) {
-        item.setUsername(username);
-
+    public void updateToDoItem(ToDoItem item) {
         logger.log(Level.INFO, "Updating item: {0}", item);
 
         repository.update(item);
     }
 
     @Override
-    public void removeToDoItem(String username, Long id) {
+    public void removeToDoItem(Long id) {
         ToDoItem item = repository.find(id);
 
         logger.log(Level.INFO, "Removing item: {0}", item);
@@ -44,9 +39,9 @@ public class DefaultToDoService implements ToDoService {
     }
 
     @Override
-    public List<ToDoItem> findToDoItemsByUsername(String username) {
-        logger.log(Level.INFO, "Getting all items for: {0}", username);
+    public List<ToDoItem> findAllToDoItems() {
+        logger.log(Level.INFO, "Getting all items");
 
-        return repository.findByUsername(username);
+        return repository.findAll();
     }
 }

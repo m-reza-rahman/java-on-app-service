@@ -7,7 +7,6 @@ import jakarta.ws.rs.ext.Provider;
 
 @Provider
 public class JacksonConfig implements ContextResolver<ObjectMapper> {
-
     private final ObjectMapper objectMapper;
 
     public JacksonConfig() {

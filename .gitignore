@@ -19,3 +19,4 @@ buildNumber.properties
 node_modules/
 node/
 build/
+jakartaee/src/main/todo-app/package-lock.json
