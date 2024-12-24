@@ -1,0 +1,17 @@
+embed-server --server-config=standalone.xml
+
+# Add the PostgreSQL driver
+/subsystem=datasources/jdbc-driver=postgresql:add(driver-name=postgresql,driver-module-name=org.postgresql,driver-class-name=org.postgresql.Driver)
+
+# Add the PostgreSQL data source
+data-source add \
+    --name=PostgreDS \
+    --jndi-name=${POSTGRESQL_JNDI_NAME} \
+    --driver-name=postgresql \
+    --connection-url=${POSTGRESQL_DB_URL} \
+    --user-name=${POSTGRESQL_DB_USER} \
+    --password=${POSTGRESQL_DB_PASSWORD} \
+    --use-java-context=true \
+    --enabled=true
+
+stop-embedded-server

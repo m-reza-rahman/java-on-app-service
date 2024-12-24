@@ -9,7 +9,7 @@ import java.util.List;
 @ApplicationScoped
 public class DefaultToDoItemRepository implements ToDoItemRepository {
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "TodoAppDatabase")
     private EntityManager entityManager;
 
     @Override

@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:9
+    container_name: todoapp_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: todoapp_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  wildfly:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todoapp_wildfly
+    environment:
+      POSTGRESQL_DB_PASSWORD: admin
+      POSTGRESQL_DB_URL: jdbc:postgresql://postgres:5432/todoapp_db
+    ports:
+      - "8080:8080"
+      - "9990:9990"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
