@@ -9,24 +9,23 @@ const ToDoApp = () => {
   const [items, setItems] = useState([]);
   const [newToDoDescription, setNewToDoDescription] = useState('');
   const [itemToEdit, setItemToEdit] = useState(null);
-  const [userId] = useState('Galia'); // The user ID (could be dynamic or fetched)
 
   useEffect(() => {
     // Fetch items for the user when the component mounts
-    ToDoService.getItems(userId)
+    ToDoService.getItems()
       .then(response => {
         setItems(response.data);
       })
       .catch(error => {
         console.error('Error fetching items:', error);
       });
-  }, [userId]);
+  }, []); // Add empty dependency array to run only once
 
   // Show a notification when an item is added or edited
   const addItem = (event) => {
     event.preventDefault();
     const newItem = { description: newToDoDescription, completed: false };
-    ToDoService.addItem(userId, newItem)
+    ToDoService.addItem(newItem)
       .then(response => {
         setItems([...items, response.data]);
         setNewToDoDescription('');
@@ -44,7 +43,7 @@ const ToDoApp = () => {
 
   // Show error message on failure (replace with appropriate error handling)
   const commitEditItem = (item) => {
-    ToDoService.updateItem(userId, item.id, item)
+    ToDoService.updateItem(item.id, item)
       .then(() => {
         setItemToEdit(null);
         toast.success('Item updated successfully!');
@@ -60,7 +59,7 @@ const ToDoApp = () => {
   };
 
   const removeItem = (item) => {
-    ToDoService.removeItem(userId, item.id)
+    ToDoService.removeItem(item.id)
       .then(() => {
         setItems(items.filter(i => i !== item));
         toast.success('Item removed successfully!');
@@ -74,7 +73,7 @@ const ToDoApp = () => {
   return (
     <div className="center">
       <div id="todo-panel">
-        <label className="todo-label" htmlFor="add-todo">Galia's To Do List</label>
+        <label className="todo-label" htmlFor="add-todo">ToDo List</label>
         <form onSubmit={addItem}>
           <input
             id="add-todo"
