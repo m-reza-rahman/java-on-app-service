@@ -17,9 +17,6 @@
 
         <version.jakarta.jakartaee.api>10.0.0</version.jakarta.jakartaee.api>
 
-        <version.wildfly.maven.plugin>5.0.1.Final</version.wildfly.maven.plugin>
-        <version.wildfly.bom>34.0.1.Final</version.wildfly.bom>
-
         <version.compiler.plugin>3.13.0</version.compiler.plugin>
         <version.war.plugin>3.4.0</version.war.plugin>
         <version.maven.resources.plugin>3.3.1</version.maven.resources.plugin>
@@ -29,18 +26,6 @@
 
         <maven.compiler.release>17</maven.compiler.release>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.wildfly.bom</groupId>
-                <artifactId>wildfly-ee-with-tools</artifactId>
-                <version>${version.wildfly.bom}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -162,26 +147,6 @@
                         </resource>
                     </webResources>
                 </configuration>
-            </plugin>
-            <!-- The WildFly plugin deploys your war to a local JBoss AS container -->
-            <plugin>
-                <groupId>org.wildfly.plugins</groupId>
-                <artifactId>wildfly-maven-plugin</artifactId>
-                <version>${version.wildfly.maven.plugin}</version>
-                <configuration>
-                    <discover-provisioning-info>
-                        <addOns>
-                            <addOn>postgresql:default</addOn>
-                        </addOns>
-                    </discover-provisioning-info>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>package</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

@@ -19,7 +19,8 @@ Start the application and PostgreSQL database using Docker Compose:
 docker-compose up --build
 ```
 
-By following these steps, you should be able to run the application and PostgreSQL database using Docker Compose. The application will be accessible at http://localhost:8080.
+By following these steps, you should be able to run the application and PostgreSQL database using Docker Compose. The application 
+will be accessible at http://localhost:8080.
 
 Rest API:
 
