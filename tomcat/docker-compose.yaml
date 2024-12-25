@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:9
+    container_name: todoapp_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: todoapp_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  tomcat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todoapp_tomcat
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      
+volumes:
+  postgres_data:
