@@ -29,7 +29,7 @@ public class ToDoResource implements Serializable {
         return service.findAllToDoItems();
     }
 
-    @PutMapping(consumes = "application/json", produces = "application/json")
+    @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
     public void update(@RequestBody ToDoItem item) {
         service.updateToDoItem(item);
     }

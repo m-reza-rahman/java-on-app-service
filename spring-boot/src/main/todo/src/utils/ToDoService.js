@@ -1,22 +1,20 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/resources/todo';
-
 const ToDoService = {
   getItems: () => {
-    return axios.get(`${API_URL}`);
+    return axios.get(`resources/todo`);
   },
   
   addItem: (newItem) => {
-    return axios.post(`${API_URL}`, newItem);
+    return axios.post(`resources/todo`, newItem);
   },
   
   updateItem: (itemId, updatedItem) => {
-    return axios.put(`${API_URL}/${itemId}`, updatedItem);
+    return axios.put(`resources/todo/${itemId}`, updatedItem);
   },
   
   removeItem: (itemId) => {
-    return axios.delete(`${API_URL}/${itemId}`);
+    return axios.delete(`resources/todo/${itemId}`);
   }
 };
 
