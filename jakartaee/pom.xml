@@ -14,16 +14,14 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
         <version.jakarta.jakartaee.api>10.0.0</version.jakarta.jakartaee.api>
-
+        <version.jakarta.enterprise.cdi-api>4.1.0</version.jakarta.enterprise.cdi-api>
         <version.compiler.plugin>3.13.0</version.compiler.plugin>
         <version.war.plugin>3.4.0</version.war.plugin>
         <version.maven.resources.plugin>3.3.1</version.maven.resources.plugin>
         <version.frontend.maven.plugin>1.15.1</version.frontend.maven.plugin>
         <version.postgresql>42.7.3</version.postgresql>
         <version.node>v20.17.0</version.node>
-
         <maven.compiler.release>17</maven.compiler.release>
     </properties>
 
@@ -39,6 +37,7 @@
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <version>${version.jakarta.enterprise.cdi-api}</version>
             <scope>provided</scope>
         </dependency>
 
