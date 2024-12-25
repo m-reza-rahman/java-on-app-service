@@ -7,30 +7,28 @@ The simplest steps are the following (no IDE required):
 * Make sure JAVA_HOME is set.
 * Docker.
 
-Navigate to the project source `spring-boot`.
+Navigate to the project source `tomcat` and build the application:
 
-Start the PostgreSQL database using Docker Compose:
+```
+mvn clean package
+```
+
+Start Spring Boot application and the PostgreSQL database using Docker Compose:
 
 ```bash
 docker-compose up --build
 ```
 
-Build and run the Spring Boot application:
-
-```bash
-mvn spring-boot:run
-```
-
-By following these steps, you should be able to run the application and PostgreSQL database using Docker Compose. The application will be accessible at http://localhost:8080.
+By following these steps, you should be able to run the application and PostgreSQL database using Docker Compose. The application will be accessible at http://localhost:8080/todo.
 
 Rest API:
 
 ```bash
-curl -v -X POST http://localhost:8080/resources/todo -H "Content-Type: application/json" -d '
+curl -v -X POST http://localhost:8080/todo/resources/todo -H "Content-Type: application/json" -d '
 {
 "description": "Test REST",
 "completed": "true"
 }'
 
-curl http://localhost:8080/resources/todo
+curl http://localhost:8080/todo/resources/todo
 ```

@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @RestController
-@RequestMapping("resources/todo")
+@RequestMapping("/resources/todo")
 public class ToDoResource implements Serializable {
     private static final long serialVersionUID = 1L;
 

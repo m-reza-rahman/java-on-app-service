@@ -73,7 +73,7 @@ li {
   height: 16px;
   opacity: 0.5;
   width: 23px;
-  background-image: url('/remove.png'); /* Replace with your image path */
+  background-image: url('/todo/remove.png'); /* Replace with your image path */
   background-size: cover;
 }
 
@@ -87,4 +87,12 @@ li {
 
 .hidden {
   display: none;
+}
+
+.todo-panel {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 500px;
 }
