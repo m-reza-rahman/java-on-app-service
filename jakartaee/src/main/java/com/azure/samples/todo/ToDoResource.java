@@ -15,7 +15,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 
-@Path("/todo")
+@Path("todo")
 @ApplicationScoped
 public class ToDoResource implements Serializable {
     private static final long serialVersionUID = 1L;
