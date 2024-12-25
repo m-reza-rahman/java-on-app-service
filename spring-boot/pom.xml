@@ -23,7 +23,8 @@
         <version.maven.resources.plugin>3.3.1</version.maven.resources.plugin>
         <version.frontend.maven.plugin>1.15.1</version.frontend.maven.plugin>
         <version.node>v20.17.0</version.node>
-        <maven.compiler.release>17</maven.compiler.release>
+        <version.compiler.plugin>3.13.0</version.compiler.plugin>
+        <maven.compiler.release>17</maven.compiler.release>        
     </properties>
 
     <dependencies>
@@ -56,6 +57,11 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${version.compiler.plugin}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>${version.maven.resources.plugin}</version>
                 <executions>
@@ -66,7 +72,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/target/classes/static</outputDirectory>
+                            <outputDirectory>${basedir}/target/classes/public</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>src/main/todo/build</directory>

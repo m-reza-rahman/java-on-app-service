@@ -88,11 +88,3 @@ li {
 .hidden {
   display: none;
 }
-
-.todo-panel {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  width: 100%;
-  max-width: 500px;
-}

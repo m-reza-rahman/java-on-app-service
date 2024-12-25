@@ -72,7 +72,7 @@ const ToDoApp = () => {
 
   return (
     <div className="center">
-      <div className="todo-panel" id="todo-panel">
+      <div id="todo-panel">
         <label className="todo-label" htmlFor="add-todo">ToDo List</label>
         <form onSubmit={addItem}>
           <input

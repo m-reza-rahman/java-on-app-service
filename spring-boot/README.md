@@ -18,7 +18,7 @@ docker-compose up --build
 Build and run the Spring Boot application:
 
 ```bash
-mvn spring-boot:run
+mvn clean spring-boot:run
 ```
 
 By following these steps, you should be able to run the application and PostgreSQL database using Docker Compose. The application will be accessible at http://localhost:8080.
