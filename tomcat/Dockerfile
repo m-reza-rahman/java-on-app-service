@@ -1,5 +1,5 @@
 # Use the official Tomcat base image
-FROM tomcat:11.0-jdk17
+FROM tomcat:10.1-jdk17
 
 # Set environment variables
 ENV CATALINA_HOME=/usr/local/tomcat
