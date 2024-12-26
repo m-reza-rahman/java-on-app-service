@@ -61,7 +61,8 @@
     </dependencies>
 
     <build>
-        <finalName>todo</finalName>
+        <!-- App Service deploys the app to root. The final name make sure the app is deployed to root in local development.-->
+        <finalName>ROOT</finalName>
 
         <plugins>
             <plugin>

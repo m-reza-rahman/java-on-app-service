@@ -12,7 +12,6 @@
     "react-toastify": "^11.0.2"
   },
   "proxy": "http://localhost:8080",
-  "homepage": "/todo",
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
