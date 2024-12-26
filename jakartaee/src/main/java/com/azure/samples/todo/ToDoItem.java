@@ -22,9 +22,9 @@ public class ToDoItem implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message="Item description cannot be blank.")
+    @NotBlank(message="Item description cannot be blank")
     @Size(min = 5, max = 110,
-            message = "Item description must be between 5 and 110 characters.")
+            message = "Item description must be between 5 and 110 characters")
     private String description;
 
     private boolean completed;
