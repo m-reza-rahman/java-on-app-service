@@ -20,10 +20,10 @@ ADD target/dependencies/postgresql-42.7.3.jar /home/site/libs/postgresql.jar
 USER jboss
 
 # Copy the WildFly initialization script
-COPY src/main/wildfly/configure-wildfly.cli /opt/jboss/configure-wildfly.cli
+COPY src/main/wildfly/configure-data-source.cli /opt/jboss/configure-data-source.cli
 
 # Run CLI script to configure data source
-RUN $JBOSS_HOME/bin/jboss-cli.sh --file=/opt/jboss/configure-wildfly.cli
+RUN $JBOSS_HOME/bin/jboss-cli.sh --file=/opt/jboss/configure-data-source.cli
 
 # Clean up the standalone_xml_history/current directory
 RUN rm -rf ${JBOSS_HOME}/standalone/configuration/standalone_xml_history/current/*
