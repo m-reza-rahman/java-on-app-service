@@ -21,6 +21,7 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.compiler.plugin>3.13.0</version.compiler.plugin>
+        <version.war.plugin>3.4.0</version.war.plugin>
         <version.maven.resources.plugin>3.3.1</version.maven.resources.plugin>
         <version.frontend.maven.plugin>1.15.1</version.frontend.maven.plugin>
         <version.node>v20.17.0</version.node>
@@ -69,28 +70,6 @@
                 <version>${version.compiler.plugin}</version>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>${version.maven.resources.plugin}</version>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/classes/public</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/todo/build</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
                 <version>${version.frontend.maven.plugin}</version>
@@ -137,13 +116,21 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <workingDirectory>src/main/todo</workingDirectory>
+                    <workingDirectory>${project.basedir}/src/main/todo</workingDirectory>
                     <nodeVersion>${version.node}</nodeVersion>
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${version.war.plugin}</version>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>${project.basedir}/src/main/todo/build</directory>
+                        </resource>
+                    </webResources>
+                </configuration>
             </plugin>
         </plugins>
     </build>
