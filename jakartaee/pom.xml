@@ -15,7 +15,6 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.jakarta.jakartaee.api>10.0.0</version.jakarta.jakartaee.api>
-        <version.jakarta.enterprise.cdi-api>4.1.0</version.jakarta.enterprise.cdi-api>
         <version.compiler.plugin>3.13.0</version.compiler.plugin>
         <version.war.plugin>3.4.0</version.war.plugin>
         <version.maven.resources.plugin>3.3.1</version.maven.resources.plugin>
@@ -30,14 +29,6 @@
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
             <version>${version.jakarta.jakartaee.api}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- Import the CDI API, we use provided scope as the API is included in WildFly -->
-        <dependency>
-            <groupId>jakarta.enterprise</groupId>
-            <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>${version.jakarta.enterprise.cdi-api}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -106,15 +97,6 @@
                             <arguments>install</arguments>
                         </configuration>
                     </execution>
-                    <!-- <execution>
-                        <id>npm test</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>test</arguments>
-                        </configuration>
-                    </execution> -->
                     <execution>
                         <id>npm build</id>
                         <goals>

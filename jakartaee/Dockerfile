@@ -2,10 +2,8 @@ FROM quay.io/wildfly/wildfly:28.0.0.Final-jdk17
 
 # Set environment variables
 ENV JBOSS_HOME=/opt/jboss/wildfly
-ENV POSTGRESQL_JNDI_NAME=java:/jdbc/TodoAppDatabase
-ENV POSTGRESQL_DB_URL=jdbc:postgresql://localhost:5432/todoapp_db
+ENV POSTGRESQL_DB_URL=jdbc:postgresql://localhost:5432/todo_db
 ENV POSTGRESQL_DB_USER=postgres
-ENV POSTGRESQL_DRIVER_DIR=$JBOSS_HOME/modules/system/layers/base/org/postgresql/main
 
 # Add a management user
 RUN ${JBOSS_HOME}/bin/add-user.sh admin admin#7rules --silent
@@ -13,10 +11,13 @@ RUN ${JBOSS_HOME}/bin/add-user.sh admin admin#7rules --silent
 # Add war file to the deployments directory
 ADD target/todo.war ${JBOSS_HOME}/standalone/deployments/
 
-# Add PostgreSQL JDBC driver
-RUN mkdir -p ${POSTGRESQL_DRIVER_DIR}
-ADD src/main/wildfly/module.xml ${POSTGRESQL_DRIVER_DIR}
-ADD target/dependencies/postgresql-42.7.3.jar ${POSTGRESQL_DRIVER_DIR}/postgresql.jar
+# Add PostgreSQL JDBC driver files
+USER root
+RUN mkdir -p /home/site/scripts/
+ADD src/main/wildfly/postgresql-module.xml /home/site/scripts/
+RUN mkdir -p /home/site/libs/
+ADD target/dependencies/postgresql-42.7.3.jar /home/site/libs/postgresql.jar
+USER jboss
 
 # Copy the WildFly initialization script
 COPY src/main/wildfly/configure-wildfly.cli /opt/jboss/configure-wildfly.cli

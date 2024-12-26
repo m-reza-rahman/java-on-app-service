@@ -1,12 +1,12 @@
 embed-server --server-config=standalone.xml
 
-# Add the PostgreSQL driver
-/subsystem=datasources/jdbc-driver=postgresql:add(driver-name=postgresql,driver-module-name=org.postgresql,driver-class-name=org.postgresql.Driver)
+module add --name=org.postgresql --resources=/home/site/libs/postgresql.jar --module-xml=/home/site/scripts/postgresql-module.xml
 
-# Add the PostgreSQL data source
+/subsystem=datasources/jdbc-driver=postgresql:add(driver-name="postgresql",driver-module-name="org.postgresql",driver-class-name="org.postgresql.Driver",driver-xa-datasource-class-name="org.postgresql.xa.PGXADataSource")
+
 data-source add \
     --name=PostgreDS \
-    --jndi-name=${POSTGRESQL_JNDI_NAME} \
+    --jndi-name="java:/jdbc/TodoAppDatabase" \
     --driver-name=postgresql \
     --connection-url=${POSTGRESQL_DB_URL} \
     --user-name=${POSTGRESQL_DB_USER} \
