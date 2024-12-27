@@ -4,6 +4,7 @@ import ToDoService from './utils/ToDoService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
+import ErrorHanlder from './utils/ToDoErrorHanlder';
 
 const ToDoApp = () => {
   const [items, setItems] = useState([]);
@@ -17,10 +18,7 @@ const ToDoApp = () => {
         setItems(response.data);
       })
       .catch(error => {
-        const errorMessage = error.response && error.response.data && error.response.data.errors
-          ? error.response.data.errors.map(err => err.message).join(', ')
-          : 'Error adding item';
-        toast.error(`Error fetching item: ${errorMessage}.`);  // Show error toast
+        toast.error(ErrorHanlder.getErrorMessage(error, 'Error fetching item'));  // Show error toast
         console.error('Error fetching items:', error);
       });
   }, []); // Add empty dependency array to run only once
@@ -36,10 +34,7 @@ const ToDoApp = () => {
         toast.success('Item added successfully!');  // Show success toast
       })
       .catch(error => {
-        const errorMessage = error.response && error.response.data && error.response.data.errors
-          ? error.response.data.errors.map(err => err.message).join(', ')
-          : 'Error adding item';
-        toast.error(`${errorMessage}.`);  // Show error toast
+        toast.error(ErrorHanlder.getErrorMessage(error, 'Error adding item'));  // Show error toast
         console.error('Error adding item:', error);
       });
   };
@@ -56,10 +51,7 @@ const ToDoApp = () => {
         toast.success('Item updated successfully!');
       })
       .catch(error => {
-        const errorMessage = error.response && error.response.data && error.response.data.errors
-          ? error.response.data.errors.map(err => err.message).join(', ')
-          : 'Error adding item';
-        toast.error(`${errorMessage}.`);  // Show error toast
+        toast.error(ErrorHanlder.getErrorMessage(error, 'Error updating item'));  // Show error toast
         console.error('Error updating item:', error);
       });
   };
@@ -75,10 +67,7 @@ const ToDoApp = () => {
         toast.success('Item removed successfully!');
       })
       .catch(error => {
-        const errorMessage = error.response && error.response.data && error.response.data.errors
-          ? error.response.data.errors.map(err => err.message).join(', ')
-          : 'Error adding item';
-        toast.error(`${errorMessage}.`);  // Show error toast
+        toast.error(ErrorHanlder.getErrorMessage(error, 'Error removing item'));  // Show error toast
         console.error('Error removing item:', error);
       });
   };
