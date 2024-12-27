@@ -19,8 +19,14 @@ RUN mkdir -p /home/site/libs/
 ADD target/dependencies/postgresql-42.7.3.jar /home/site/libs/postgresql.jar
 USER jboss
 
-# Copy the WildFly initialization script
+# Copy the WildFly configuration script
 COPY src/main/wildfly/configure-data-source.cli /opt/jboss/configure-data-source.cli
+
+# Update the script to configure the server without a start
+USER root
+RUN echo "embed-server" | cat - /opt/jboss/configure-data-source.cli | tee /opt/jboss/configure-data-source.cli
+RUN echo "stop-embedded-server" >> /opt/jboss/configure-data-source.cli
+USER jboss
 
 # Run CLI script to configure data source
 RUN $JBOSS_HOME/bin/jboss-cli.sh --file=/opt/jboss/configure-data-source.cli
