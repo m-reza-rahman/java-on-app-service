@@ -5,10 +5,11 @@ We use Azure PostgreSQL but you can use Azure SQL, Azure MySQL, or Oracle DB@Azu
 
 ## Setup
 * Install JDK 17 (we used [Eclipse Temurin OpenJDK 17 LTS](https://adoptium.net/?variant=openjdk17)). Make sure JAVA_HOME is set.
-* Install [Maven](https://maven.apache.org/download.cgi).
+* Set up [Maven](https://maven.apache.org/download.cgi).
 * Download this repository somewhere in your file system (easiest way might be to download as a zip and extract).
 * If you wish to run locally before deploying to Azure, install [Docker](https://docs.docker.com/get-started/get-docker/).
 * You will need an Azure subscription. If you don't have one, you can get one for free for one year [here](https://azure.microsoft.com/en-us/free).
+* Install the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest).
 
 ## Start Managed PostgreSQL on Azure
 * Go to the [Azure portal](http://portal.azure.com).
