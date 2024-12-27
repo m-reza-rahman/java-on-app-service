@@ -14,7 +14,11 @@ public class ValidationExceptionMapper implements ExceptionMapper<ConstraintViol
         StringBuilder errorValueBuilder = new StringBuilder();
 
         for (ConstraintViolation<?> violation : exception.getConstraintViolations()) {
-            errorValueBuilder.append("\""+ violation.getMessage() + "\", ");
+            errorValueBuilder.append("{")
+                             .append("\"property\": \"").append(violation.getPropertyPath()).append("\", ")
+                             .append("\"invalidValue\": \"").append(violation.getInvalidValue()).append("\", ")
+                             .append("\"message\": \"").append(violation.getMessage()).append("\"")
+                             .append("}, ");
         }
 
         String errors = errorValueBuilder.toString();
