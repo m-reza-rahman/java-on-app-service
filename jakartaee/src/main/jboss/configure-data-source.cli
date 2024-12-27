@@ -2,12 +2,4 @@ module add --name=org.postgresql --resources=/home/site/libs/postgresql.jar --mo
 
 /subsystem=datasources/jdbc-driver=postgresql:add(driver-name="postgresql",driver-module-name="org.postgresql",driver-class-name="org.postgresql.Driver",driver-xa-datasource-class-name="org.postgresql.xa.PGXADataSource")
 
-data-source add \
-    --name=PostgreDS \
-    --jndi-name="java:/jdbc/TodoAppDatabase" \
-    --driver-name=postgresql \
-    --connection-url=${POSTGRESQL_DB_URL} \
-    --user-name=${POSTGRESQL_DB_USER} \
-    --password=${POSTGRESQL_DB_PASSWORD} \
-    --use-java-context=true \
-    --enabled=true
+data-source add --name="PostgreDS" --jndi-name="java:/jdbc/TodoAppDatabase" --driver-name="postgresql" --connection-url="${env.POSTGRESQL_DB_URL}" --user-name="${env.POSTGRESQL_DB_USER}" --password="${env.POSTGRESQL_DB_PASSWORD}" --use-java-context="true" --enabled="true"

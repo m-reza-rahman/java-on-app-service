@@ -104,7 +104,7 @@ curl http://localhost:8080/resources/todo
 </plugin>
 ```
 
-* Use Maven to deploy the application:
+* Use Maven to deploy the application from the `jakartaee` directory:
 
 ```
 mvn clean package azure-webapp:deploy
