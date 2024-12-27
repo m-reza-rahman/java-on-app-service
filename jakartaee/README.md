@@ -1,34 +1,29 @@
-## Getting Started
+# Deploying a Java/Jakarta EE Application to JBoss EAP on Azure App Service
+This demo shows how you can deploy a Java/Jakarta EE application to Azure using JBoss EAP on App Service.
 
-The simplest steps are the following (no IDE required):
-
-* Get the project source code.
-* Ensure you are running Java SE 17.
-* Make sure JAVA_HOME is set.
-* Docker.
-
+## Build the Project
 Navigate to the project source `jakartaee` and build the application:
 
 ```
 mvn clean package
 ```
 
+## Run Locally (Optional)
 Start the application and PostgreSQL database using Docker Compose:
 
-```bash
+```
 # docker-compose down -v
 docker-compose up --build
 ```
 
-By following these steps, you should be able to run the application and PostgreSQL database using Docker Compose. The application 
-will be accessible at http://localhost:8080.
+Once the application starts, it will be accessible at http://localhost:8080.
 
-Rest API:
+You can explore the REST API for the application:
 
 ```bash
 curl -v -X POST http://localhost:8080/resources/todo -H "Content-Type: application/json" -d '
 {
-"description": "Test REST",
+"description": "Test REST API",
 "completed": "true"
 }'
 
