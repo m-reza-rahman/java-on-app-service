@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/resources/todo';
+const API_URL = 'http://localhost/resources/todo';
 
 const ToDoService = {
   getItems: () => {
