@@ -19,7 +19,7 @@
         <version.war.plugin>3.4.0</version.war.plugin>
         <version.maven.resources.plugin>3.3.1</version.maven.resources.plugin>
         <version.frontend.maven.plugin>1.15.1</version.frontend.maven.plugin>
-        <version.postgresql>42.7.3</version.postgresql>
+        <version.postgresql>42.7.4</version.postgresql>
         <version.node>v20.17.0</version.node>
         <maven.compiler.release>17</maven.compiler.release>
     </properties>
@@ -31,40 +31,11 @@
             <version>${version.jakarta.jakartaee.api}</version>
             <scope>provided</scope>
         </dependency>
-
-        <!-- Download PostgreSQL driver -->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${version.postgresql}</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
     <build>
         <finalName>todo</finalName>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>
-                                ${project.build.directory}/dependencies
-                            </outputDirectory>
-                            <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>false</overWriteSnapshots>
-                            <overWriteIfNewer>true</overWriteIfNewer>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -74,6 +45,32 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>${version.maven.resources.plugin}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.8.1</version>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <artifactItems>
+                        <artifactItem>
+                            <groupId>org.postgresql</groupId>
+                            <artifactId>postgresql</artifactId>
+                            <version>${version.postgresql}</version>
+                            <overWrite>true</overWrite>
+                            <outputDirectory>${project.build.directory}/dependencies</outputDirectory>
+                            <destFileName>postgresql.jar</destFileName>
+                        </artifactItem>
+                    </artifactItems>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>com.github.eirslett</groupId>
@@ -127,6 +124,56 @@
                             <directory>${project.basedir}/src/main/todo/build</directory>
                         </resource>
                     </webResources>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.microsoft.azure</groupId>
+                <artifactId>azure-webapp-maven-plugin</artifactId>
+                <version>2.13.0</version>
+                <configuration>
+                    <appName>todo</appName>
+                    <resourceGroup>todo-app-group-reza</resourceGroup>
+                    <javaVersion>Java 17</javaVersion>
+                    <webContainer>JBossEAP 8</webContainer>
+                    <appSettings>
+                        <!-- Increase the timeout -->
+                        <property>
+                            <name>WEBSITES_CONTAINER_START_TIME_LIMIT</name>
+                            <value>500</value>
+                        </property>
+                    </appSettings>
+                    <deployment>
+                        <resources>
+                            <resource>
+                                <type>lib</type>
+                                <directory> ${project.build.directory}/dependencies</directory>
+                                <includes>
+                                    <include>postgresql.jar</include>
+                                </includes>
+                            </resource>
+                            <resource>
+                                <type>script</type>
+                                <directory>${project.basedir}/src/main/jboss</directory>
+                                <includes>
+                                    <include>postgresql-module.xml</include>
+                                    <include>configure-data-source.cli</include>
+                                </includes>
+                            </resource>
+                            <resource>
+                                <type>startup</type>
+                                <directory>${project.basedir}/src/main/jboss</directory>
+                                <includes>
+                                    <include>startup.sh</include>
+                                </includes>
+                            </resource>
+                            <resource>
+                                <directory>${project.basedir}/target</directory>
+                                <includes>
+                                    <include>todo.war</include>
+                                </includes>
+                            </resource>
+                        </resources>
+                    </deployment>
                 </configuration>
             </plugin>
         </plugins>

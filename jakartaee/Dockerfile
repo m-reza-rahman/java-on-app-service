@@ -14,13 +14,13 @@ ADD target/todo.war ${JBOSS_HOME}/standalone/deployments/
 # Add PostgreSQL JDBC driver files
 USER root
 RUN mkdir -p /home/site/scripts/
-ADD src/main/wildfly/postgresql-module.xml /home/site/scripts/
+ADD src/main/jboss/postgresql-module.xml /home/site/scripts/
 RUN mkdir -p /home/site/libs/
-ADD target/dependencies/postgresql-42.7.3.jar /home/site/libs/postgresql.jar
+ADD target/dependencies/postgresql.jar /home/site/libs/postgresql.jar
 USER jboss
 
 # Copy the WildFly configuration script
-COPY src/main/wildfly/configure-data-source.cli /opt/jboss/configure-data-source.cli
+COPY src/main/jboss/configure-data-source.cli /opt/jboss/configure-data-source.cli
 
 # Update the script to configure the server without a start
 USER root
