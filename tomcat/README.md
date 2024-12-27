@@ -16,6 +16,8 @@ mvn clean package
 Start Spring Boot application and the PostgreSQL database using Docker Compose:
 
 ```bash
+# docker-compose down -v
+
 docker-compose up --build
 ```
 

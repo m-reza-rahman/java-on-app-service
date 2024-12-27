@@ -12,6 +12,7 @@ Navigate to the project source `spring-boot`.
 Start the PostgreSQL database using Docker Compose:
 
 ```bash
+# docker-compose down -v
 docker-compose up --build
 ```
 

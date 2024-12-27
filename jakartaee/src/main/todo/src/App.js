@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import TodoList from './components/TodoList';
 import ToDoService from './utils/ToDoService';
-import {ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
+import ErrorHanlder from './utils/ToDoErrorHanlder';
 
 const ToDoApp = () => {
   const [items, setItems] = useState([]);
@@ -17,6 +18,7 @@ const ToDoApp = () => {
         setItems(response.data);
       })
       .catch(error => {
+        toast.error(ErrorHanlder.getErrorMessage(error, 'Error fetching item'));  // Show error toast
         console.error('Error fetching items:', error);
       });
   }, []); // Add empty dependency array to run only once
@@ -32,7 +34,7 @@ const ToDoApp = () => {
         toast.success('Item added successfully!');  // Show success toast
       })
       .catch(error => {
-        toast.error('Error adding item:', error);  // Show success toast
+        toast.error(ErrorHanlder.getErrorMessage(error, 'Error adding item'));  // Show error toast
         console.error('Error adding item:', error);
       });
   };
@@ -49,7 +51,7 @@ const ToDoApp = () => {
         toast.success('Item updated successfully!');
       })
       .catch(error => {
-        toast.error('Error updating item:', error);
+        toast.error(ErrorHanlder.getErrorMessage(error, 'Error updating item'));  // Show error toast
         console.error('Error updating item:', error);
       });
   };
@@ -65,7 +67,7 @@ const ToDoApp = () => {
         toast.success('Item removed successfully!');
       })
       .catch(error => {
-        toast.error('Error removing item:', error);
+        toast.error(ErrorHanlder.getErrorMessage(error, 'Error removing item'));  // Show error toast
         console.error('Error removing item:', error);
       });
   };
@@ -83,7 +85,7 @@ const ToDoApp = () => {
             onChange={(e) => setNewToDoDescription(e.target.value)}
             required
           />
-        </form>        
+        </form>
         {items.length > 0 && (
           <div>
             <TodoList
