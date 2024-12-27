@@ -1,4 +1,4 @@
-embed-server --server-config=standalone.xml
+embed-server
 
 module add --name=org.postgresql --resources=/home/site/libs/postgresql.jar --module-xml=/home/site/scripts/postgresql-module.xml
 
