@@ -16,18 +16,18 @@ Start the application and PostgreSQL database using Docker Compose:
 docker-compose up --build
 ```
 
-Once the application starts, it will be accessible at http://localhost.
+Once the application starts, it will be accessible at http://localhost:8080.
 
 You can explore the REST API for the application:
 
 ```bash
-curl -v -X POST http://localhost/resources/todo -H "Content-Type: application/json" -d '
+curl -v -X POST http://localhost:8080/resources/todo -H "Content-Type: application/json" -d '
 {
 "description": "Test REST API",
 "completed": "true"
 }'
 
-curl http://localhost/resources/todo
+curl http://localhost:8080/resources/todo
 ```
 
 ## Setup JBoss EAP on App Service
