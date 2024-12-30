@@ -36,6 +36,7 @@ public class ToDoResource implements Serializable {
     public void edit(
             @PathParam("id") Long id,
             @Valid ToDoItem item) {
+        System.out.println("item: " + item.toString());
         item.setId(id);
         service.updateToDoItem(item);
     }
