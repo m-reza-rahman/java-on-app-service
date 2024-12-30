@@ -75,7 +75,7 @@
                             <outputDirectory>${basedir}/target/classes/public</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${project.basedir}/../todo/build</directory>
+                                    <directory>${project.basedir}/../react/build</directory>
                                 </resource>
                             </resources>
                         </configuration>
@@ -104,15 +104,6 @@
                             <arguments>install</arguments>
                         </configuration>
                     </execution>
-                    <!-- <execution>
-                        <id>npm test</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>test</arguments>
-                        </configuration>
-                    </execution> -->
                     <execution>
                         <id>npm build</id>
                         <goals>
@@ -129,7 +120,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <workingDirectory>${project.basedir}/../todo</workingDirectory>
+                    <workingDirectory>${project.basedir}/../react</workingDirectory>
                     <nodeVersion>${version.node}</nodeVersion>
                 </configuration>
             </plugin>

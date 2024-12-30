@@ -1,4 +1,4 @@
-const ToDoErrorHanlder = {
+const ToDoErrorHandler = {
     getErrorMessage: (error, defaultMsg) => {
         if (!error.response){
             return error.message || defaultMsg;
@@ -15,4 +15,4 @@ const ToDoErrorHanlder = {
     }
 };
 
-export default ToDoErrorHanlder;
+export default ToDoErrorHandler;
