@@ -19,23 +19,21 @@ public class ToDoResource implements Serializable {
         return service.addToDoItem(item);
     }
 
-    @GetMapping(value = "/{id}", produces = "application/json")
-    public ToDoItem find(@PathVariable Long id) {
-        return service.find(id);
-    }
-
-    @GetMapping(produces = "application/json")
-    public List<ToDoItem> findAll() {
-        return service.findAllToDoItems();
-    }
-
     @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
-    public void update(@RequestBody ToDoItem item) {
+    public void edit(
+            @PathVariable Long id,
+            @RequestBody ToDoItem item) {
+        item.setId(id);
         service.updateToDoItem(item);
     }
 
     @DeleteMapping(value = "/{id}", produces = "application/json")
-    public void delete(@PathVariable Long id) {
+    public void remove(@PathVariable Long id) {
         service.removeToDoItem(id);
+    }
+
+    @GetMapping(produces = "application/json")
+    public List<ToDoItem> getAll() {
+        return service.findAllToDoItems();
     }
 }
