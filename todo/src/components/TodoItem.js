@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 function TodoItem({ item, itemToEdit, editItem, commitEditItem, revertEditing, removeItem }) {
   const [description, setDescription] = useState(item.description);
   const [completed, setCompleted] = useState(item.completed);
+  const [isEscapePressed, setIsEscapePressed] = useState(false);
 
   useEffect(() => {
     setDescription(item.description);
@@ -19,7 +20,13 @@ function TodoItem({ item, itemToEdit, editItem, commitEditItem, revertEditing, r
     commitEditItem(item);
   };
 
-  const handleBlur = () => {
+  const handleBlur = (e) => {
+    if (isEscapePressed) {
+      e.preventDefault();
+      setIsEscapePressed(false);
+      return;
+    }
+
     item.description = description;
     commitEditItem(item);
   };
@@ -28,14 +35,18 @@ function TodoItem({ item, itemToEdit, editItem, commitEditItem, revertEditing, r
     if (e.key === 'Escape') {
       e.stopPropagation(); // Stop the event from propagating
       e.preventDefault();
+      setIsEscapePressed(true);
       revertEditing();
     }
     else if (e.key === 'Enter') {
+      e.stopPropagation(); // Stop the event from propagating
+      e.preventDefault();
+      setIsEscapePressed(true);
       item.description = description;
       commitEditItem(item);
     }
   };
-  
+
   return (
     <li>
       <div className="todo-item-container">
@@ -47,11 +58,14 @@ function TodoItem({ item, itemToEdit, editItem, commitEditItem, revertEditing, r
         />
         <span
           className={`todo-description ${completed ? 'completed' : ''}`}
-          onDoubleClick={() => editItem(item)}
+          onDoubleClick={(e) => {
+            e.stopPropagation(); // Stop the event from propagating
+            editItem(item);
+          }}
         >
           {description}
         </span>
-        <button 
+        <button
           className="todo-item-remove-button todo-item-remove-icon"
           title="Remove this item"
           onClick={() => removeItem(item)}

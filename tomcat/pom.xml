@@ -117,7 +117,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <workingDirectory>${project.basedir}/src/main/todo</workingDirectory>
+                    <workingDirectory>${project.basedir}/../todo</workingDirectory>
                     <nodeVersion>${version.node}</nodeVersion>
                 </configuration>
             </plugin>
@@ -128,7 +128,7 @@
                 <configuration>
                     <webResources>
                         <resource>
-                            <directory>${project.basedir}/src/main/todo/build</directory>
+                            <directory>${project.basedir}/../todo/build</directory>
                         </resource>
                     </webResources>
                 </configuration>

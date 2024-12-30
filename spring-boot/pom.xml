@@ -75,7 +75,7 @@
                             <outputDirectory>${basedir}/target/classes/public</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${project.basedir}/src/main/todo/build</directory>
+                                    <directory>${project.basedir}/../todo/build</directory>
                                 </resource>
                             </resources>
                         </configuration>
@@ -129,7 +129,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <workingDirectory>${project.basedir}/src/main/todo</workingDirectory>
+                    <workingDirectory>${project.basedir}/../todo</workingDirectory>
                     <nodeVersion>${version.node}</nodeVersion>
                 </configuration>
             </plugin>
