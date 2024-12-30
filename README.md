@@ -3,7 +3,7 @@ This demo shows how you can deploy Spring Boot, Spring Framework, Hibernate, Tom
 Service (App Service is the premier PaaS platform on Azure). It is the demo for 
 [this](https://sessionize.com/s/reza-rahman/spring-quarkus-tomcat-jakarta-ee-hyperscale-paas-o/122890) talk.
 
-We use Azure PostgreSQL but you can use Azure SQL, Azure MySQL, or Oracle DB@Azure.
+We use Azure PostgreSQL but you can use Azure SQL, Azure MySQL, or Oracle DB@Azure. React is used as the JavaScript front-end.
 
 ## Setup
 * Install JDK 17 (we used [Eclipse Temurin OpenJDK 17 LTS](https://adoptium.net/?variant=openjdk17)). Make sure JAVA_HOME is set.
