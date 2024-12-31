@@ -24,13 +24,21 @@ public class ToDoItem implements Serializable {
     @GeneratedValue
     private Long id;
 
-    @NotBlank(message = "Item description cannot be blank.")
-    @Size(min = 5, max = 110, message = "Item description must be between 5 and 110 characters.")
+    @NotBlank(message = "Item description cannot be blank")
+    @Size(min = 5, max = 110, message = "Item description must be between 5 and 110 characters")
     private String description;
 
     private boolean completed;
 
-    // Getters and setters
+    protected ToDoItem() {
+        // Default constructor
+    }
+
+    public ToDoItem(String description, boolean completed) {
+        this.description = description;
+        this.completed = completed;
+    }    
+
     public Long getId() {
         return id;
     }
@@ -53,5 +61,34 @@ public class ToDoItem implements Serializable {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof ToDoItem)) {
+            return false;
+        }
+
+        ToDoItem other = (ToDoItem) object;
+
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ToDoItem[id=" + id
+                + ", desciption=" + description
+                + ", completed=" + completed + " ]";
     }
 }
