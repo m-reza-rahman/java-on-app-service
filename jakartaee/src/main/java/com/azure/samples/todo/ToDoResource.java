@@ -33,10 +33,7 @@ public class ToDoResource implements Serializable {
     @PUT
     @Path("{id}")
     @Consumes({"application/json"})
-    public void edit(
-            @PathParam("id") Long id,
-            @Valid ToDoItem item) {
-        item.setId(id);
+    public void edit(@Valid ToDoItem item) {
         service.updateToDoItem(item);
     }
 

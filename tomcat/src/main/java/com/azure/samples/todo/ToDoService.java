@@ -7,8 +7,6 @@ public interface ToDoService {
 
     List<ToDoItem> findAllToDoItems();
 
-    ToDoItem find(Long id);
-
     void removeToDoItem(Long id);
 
     void updateToDoItem(ToDoItem item);

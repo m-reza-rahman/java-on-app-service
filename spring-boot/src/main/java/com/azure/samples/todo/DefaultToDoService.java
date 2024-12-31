@@ -1,7 +1,8 @@
 package com.azure.samples.todo;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import jakarta.transaction.Transactional; 
+import jakarta.inject.Inject;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -11,10 +12,11 @@ import java.util.logging.Logger;
 public class DefaultToDoService implements ToDoService {
     private static final Logger logger = Logger.getLogger(DefaultToDoService.class.getName());
 
-    @Autowired
+    @Inject
     private ToDoItemRepository repository;
 
     @Override
+    @Transactional
     public ToDoItem addToDoItem(ToDoItem item) {
         logger.log(Level.INFO, "Adding item: {0}", item);
 
@@ -22,6 +24,7 @@ public class DefaultToDoService implements ToDoService {
     }
 
     @Override
+    @Transactional
     public void updateToDoItem(ToDoItem item) {
         logger.log(Level.INFO, "Updating item: {0}", item);
 

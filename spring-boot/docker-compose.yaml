@@ -10,6 +10,19 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+  spring-boot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: todo_app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/todo_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
       
 volumes:
   postgres_data:
