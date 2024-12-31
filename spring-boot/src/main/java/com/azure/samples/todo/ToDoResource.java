@@ -23,7 +23,6 @@ public class ToDoResource implements Serializable {
     public void edit(
             @PathVariable Long id,
             @RequestBody ToDoItem item) {
-        item.setId(id);
         service.updateToDoItem(item);
     }
 
