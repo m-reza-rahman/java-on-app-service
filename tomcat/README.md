@@ -26,11 +26,11 @@ By following these steps, you should be able to run the application and PostgreS
 Rest API:
 
 ```bash
-curl -v -X POST http://localhost:8080/todo/resources/todo -H "Content-Type: application/json" -d '
+curl -v -X POST http://localhost:8080/resources/todo -H "Content-Type: application/json" -d '
 {
 "description": "Test REST",
 "completed": "true"
 }'
 
-curl http://localhost:8080/todo/resources/todo
+curl http://localhost:8080/resources/todo
 ```
