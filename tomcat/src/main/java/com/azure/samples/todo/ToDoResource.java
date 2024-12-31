@@ -20,9 +20,7 @@ public class ToDoResource implements Serializable {
     }
 
     @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
-    public void edit(
-            @PathVariable Long id,
-            @RequestBody ToDoItem item) {
+    public void edit(@RequestBody ToDoItem item) {
         service.updateToDoItem(item);
     }
 
