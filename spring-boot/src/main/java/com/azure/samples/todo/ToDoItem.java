@@ -4,10 +4,8 @@ import java.io.Serializable;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -89,6 +87,6 @@ public class ToDoItem implements Serializable {
     public String toString() {
         return "ToDoItem[id=" + id
                 + ", desciption=" + description
-                + ", completed=" + completed + " ]";
+                + ", completed=" + completed + "]";
     }
 }

@@ -12,6 +12,9 @@ mvn clean package
 Start the application and PostgreSQL database using Docker Compose:
 
 ```
+# Best to run these to avoid resource conflicts
+# docker system prune -a
+# docker volume prune -a
 # docker-compose down -v
 docker-compose up --build
 ```
