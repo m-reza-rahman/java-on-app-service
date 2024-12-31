@@ -7,19 +7,17 @@ The simplest steps are the following (no IDE required):
 * Make sure JAVA_HOME is set.
 * Docker.
 
-Navigate to the project source `spring-boot`.
+Navigate to the project source `spring-boot` and build the application:
 
-Start the PostgreSQL database using Docker Compose:
+```
+mvn clean package
+```
+
+Start the PostgreSQL database and the application using Docker Compose:
 
 ```bash
 # docker-compose down -v
 docker-compose up --build
-```
-
-Build and run the Spring Boot application:
-
-```bash
-mvn clean spring-boot:run
 ```
 
 By following these steps, you should be able to run the application and PostgreSQL database using Docker Compose. The application will be accessible at http://localhost:8080.
