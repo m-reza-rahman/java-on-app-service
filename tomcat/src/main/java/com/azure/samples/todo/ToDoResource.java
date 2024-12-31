@@ -1,7 +1,7 @@
 package com.azure.samples.todo;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import jakarta.inject.Inject;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 public class ToDoResource implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Autowired
+    @Inject
     private ToDoService service;
 
     @PostMapping(consumes = "application/json", produces = "application/json")
