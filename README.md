@@ -39,5 +39,4 @@ following is just one logical sequence.
 * Deploying a Spring Framework application using Tomcat on App Service. The [tomcat](/tomcat) folder shows how this is done.
 
 ## To Do
-* Get it working on latest Spring Boot and Hibernate.
 * Get it working on Tomcat using latest Spring Framework and Hibernate.
