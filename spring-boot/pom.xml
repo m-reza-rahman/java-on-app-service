@@ -26,7 +26,7 @@
         <version.node>v20.17.0</version.node>
         <version.compiler.plugin>3.13.0</version.compiler.plugin>
         <version.jakarta.cdi>4.1.0</version.jakarta.cdi>
-        <maven.compiler.release>17</maven.compiler.release>        
+        <maven.compiler.release>17</maven.compiler.release>
     </properties>
 
     <dependencies>
@@ -40,6 +40,11 @@
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
             <version>${version.jakarta.cdi}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
         <!-- Spring Data support for persistence -->
@@ -156,8 +161,8 @@
                     <webContainer>Java SE</webContainer>
                     <appSettings>
                         <property>
-	                        <name>WEBSITE_SKIP_AUTOCONFIGURE_DATABASE</name>
-	                        <value>true</value>
+                            <name>WEBSITE_SKIP_AUTOCONFIGURE_DATABASE</name>
+                            <value>true</value>
                         </property>
                     </appSettings>
                     <deployment>
