@@ -4,12 +4,6 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.1</version>
-    </parent>
-
     <groupId>com.azure.samples</groupId>
     <artifactId>todo</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -26,15 +20,40 @@
         <version.frontend.maven.plugin>1.15.1</version.frontend.maven.plugin>
         <version.node>v20.17.0</version.node>
         <version.jakarta.cdi>4.1.0</version.jakarta.cdi>
+        <version.spring.framework>6.2.1</version.spring.framework>
+        <version.postgresql>42.7.4</version.postgresql>
         <maven.compiler.release>17</maven.compiler.release>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${version.spring.framework}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- Spring Framework dependencies -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.6.2.Final</version>
+        </dependency>
         <!-- Add Jakarta EE CDI dependency -->
         <dependency>
             <groupId>jakarta.enterprise</groupId>
@@ -42,34 +61,55 @@
             <version>${version.jakarta.cdi}</version>
         </dependency>
 
-        <!-- Spring Data support for persistence -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+        <!-- Implementation of validator -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>8.0.2.Final</version>
         </dependency>
 
-        <!-- Bean Validation (JSR 380) -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator-cdi</artifactId>
+            <version>8.0.2.Final</version>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <groupId>org.glassfish.expressly</groupId>
+            <artifactId>expressly</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.1.0</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.18.2</version>
         </dependency>
 
         <!-- PostgreSQL JDBC Driver -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
+            <version>${version.postgresql}</version>
             <scope>runtime</scope>
         </dependency>
     </dependencies>
 
     <build>
-        <!-- App Service deploys the app to root. The final name make sure the app is deployed to root in local development.-->
+        <!-- App Service deploys the app to root. The final name make sure the app is deployed to
+        root in local development.-->
         <finalName>ROOT</finalName>
 
         <plugins>
@@ -77,6 +117,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${version.compiler.plugin}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${version.maven.resources.plugin}</version>
             </plugin>
             <plugin>
                 <groupId>com.github.eirslett</groupId>
