@@ -1,21 +1,29 @@
 # JavaScript/React Front-End
 This is the shared JavaScript/React front-end for the Java applications.
 
-## Run the frontend locally
+## Running the Front-End Locally
+You can start the front-end locally on it's own with a mock backend.
 
-Start json-server with:
+* Ensure (Node.js is installed)[https://nodejs.org/en/download].
+* Start json-server from the `react` directory with:
 
-```
-npm run json-server
-```
+  ```
+  npm run json-server
+  ```
 
-The fake data can be access via `http://localhost:3001/todos`
+  The mock data can be accessed at `http://localhost:3001/todos`.
 
-Start the React application:
+* Set an environment variable `NODE_OPTIONS` to `--openssl-legacy-provider`. 
+  In *NIX based systems:
 
-```
-export NODE_OPTIONS=--openssl-legacy-provider
-npm start
-```
+  ```
+  export NODE_OPTIONS=--openssl-legacy-provider
+  ```
 
-Access the frontend with `http://localhost:3000`
+* Start the front-end from the `react` directory:
+
+  ```
+  npm start
+  ```
+
+  Access the frontend at `http://localhost:3000`.
