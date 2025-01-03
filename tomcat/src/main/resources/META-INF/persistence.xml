@@ -14,7 +14,6 @@
             <property name="jakarta.persistence.schema-generation.database.action"
                 value="drop-and-create" />
             <property name="hibernate.transaction.coordinator_class" value="jdbc"/>
-            <property name="logging.level.org.hibernate" value="DEBUG" />
         </properties>
     </persistence-unit>
 </persistence>
