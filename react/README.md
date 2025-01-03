@@ -11,7 +11,7 @@ You can start the front-end locally on it's own with a mock backend.
   npm run json-server
   ```
 
-  The mock data can be accessed at `http://localhost:3001/todos`.
+  The mock data can be accessed at http://localhost:3001/todos.
 
 * Set an environment variable `NODE_OPTIONS` to `--openssl-legacy-provider`. 
   In *NIX based systems:
@@ -26,4 +26,4 @@ You can start the front-end locally on it's own with a mock backend.
   npm start
   ```
 
-  Access the frontend at `http://localhost:3000`.
+  Access the frontend at http://localhost:3000.
