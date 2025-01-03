@@ -87,6 +87,6 @@ public class ToDoItem implements Serializable {
     public String toString() {
         return "ToDoItem[id=" + id
                 + ", desciption=" + description
-                + ", completed=" + completed + " ]";
+                + ", completed=" + completed + "]";
     }
 }

@@ -22,3 +22,4 @@ build/
 jakartaee/src/main/todo-app/package-lock.json
 jakartaee/.settings
 spring-boot/.settings
+tomcat/.settings
