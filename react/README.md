@@ -26,4 +26,4 @@ You can start the front-end locally on it's own with a mock backend.
   npm start
   ```
 
-  Access the frontend at http://localhost:3000.
+  Access the front-end at http://localhost:3000.
