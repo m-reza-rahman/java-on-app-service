@@ -4,7 +4,7 @@ This is the shared JavaScript/React front-end for the Java applications.
 ## Running the Front-End Locally
 You can start the front-end locally on it's own with a mock backend.
 
-* Ensure (Node.js is installed)[https://nodejs.org/en/download].
+* Ensure [Node.js is installed](https://nodejs.org/en/download).
 * Start json-server from the `react` directory with:
 
   ```
