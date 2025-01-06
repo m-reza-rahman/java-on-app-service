@@ -40,3 +40,4 @@ following is just one logical sequence.
 
 ## To Do
 * Get it working on Tomcat using latest Spring Framework and Hibernate.
+* Switch to managed identity authentication.
