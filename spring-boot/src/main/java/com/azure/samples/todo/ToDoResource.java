@@ -18,7 +18,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @ResponseBody
-@RequestMapping("/todo")
+@RequestMapping("resources/todo")
 public class ToDoResource implements Serializable {
     private static final long serialVersionUID = 1L;
 
