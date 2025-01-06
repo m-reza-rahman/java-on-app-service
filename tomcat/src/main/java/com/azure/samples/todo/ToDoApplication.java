@@ -17,11 +17,12 @@ public class ToDoApplication implements WebApplicationInitializer {
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
-        logger.warning("Starting ToDoApplication...");
+        logger.info("Starting application...");
+        
         // Create the application context
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
         context.register(AppConfig.class);
-        logger.warning("Registering config...");
+        logger.info("Registering config...");
 
         // Add the ContextLoaderListener
         servletContext.addListener(new ContextLoaderListener(context));
@@ -31,6 +32,6 @@ public class ToDoApplication implements WebApplicationInitializer {
                 new DispatcherServlet(context));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/resources/*");
-        logger.warning("DispatcherServlet registered with mapping '/resources/*'");
+        logger.info("DispatcherServlet registered with mapping '/resources/*'");
     }
 }
