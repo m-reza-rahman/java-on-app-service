@@ -3,7 +3,6 @@ package com.azure.samples.todo;
 import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +18,6 @@ import jakarta.validation.Valid;
 
 @RestController
 @ResponseBody
-@Validated
 @RequestMapping("/todo")
 public class ToDoResource implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -38,7 +36,7 @@ public class ToDoResource implements Serializable {
     }
 
     @DeleteMapping(value = "/{id}", produces = "application/json")
-    public void remove(@PathVariable Long id) {
+    public void remove(@PathVariable("id") Long id) {
         service.removeToDoItem(id);
     }
 
