@@ -21,6 +21,10 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: todoapp_tomcat
+    environment:
+      POSTGRESQL_DB_URL: jdbc:postgresql://postgres:5432/todo_db
+      POSTGRESQL_DB_USER: postgres
+      POSTGRESQL_DB_PASSWORD: admin
     ports:
       - "8080:8080"
     depends_on:
