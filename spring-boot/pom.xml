@@ -26,8 +26,20 @@
         <version.node>v20.17.0</version.node>
         <version.compiler.plugin>3.13.0</version.compiler.plugin>
         <version.jakarta.cdi>4.1.0</version.jakarta.cdi>
-        <maven.compiler.release>17</maven.compiler.release>        
+        <maven.compiler.release>17</maven.compiler.release>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.azure.spring</groupId>
+                <artifactId>spring-cloud-azure-dependencies</artifactId>
+                <version>5.19.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -59,6 +71,11 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.azure.spring</groupId>
+            <artifactId>spring-cloud-azure-starter-jdbc-postgresql</artifactId>
         </dependency>
     </dependencies>
 
@@ -156,8 +173,8 @@
                     <webContainer>Java SE</webContainer>
                     <appSettings>
                         <property>
-	                        <name>WEBSITE_SKIP_AUTOCONFIGURE_DATABASE</name>
-	                        <value>true</value>
+                            <name>WEBSITE_SKIP_AUTOCONFIGURE_DATABASE</name>
+                            <value>true</value>
                         </property>
                     </appSettings>
                     <deployment>

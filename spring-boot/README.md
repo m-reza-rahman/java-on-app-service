@@ -47,9 +47,14 @@ turn off Application Insights. You should definitely do
 this for the free tier where compute capacity is very limited.
 * Finish creating the resource.
 
-## Set up Environment Variables
-* In the portal home, go to 'All resources'. Find and click on the App Service instance named todo-spring-app. Open the Settings -> Environment variables panel.
-* Add the following variables: SPRING_DATASOURCE_URL=jdbc:postgresql://todo-db-`<your suffix>`.postgres.database.azure.com:5432/postgres, SPRING_DATASOURCE_USERNAME=postgres, SPRING_DATASOURCE_PASSWORD=Secret123!.
+## Connect PostgreSQL using Service Connector
+* In the portal home, go to 'All resources'. Find and click on the App Service instance named todo-spring-app. Open the Settings -> Service Connector panel.
+* Select Create. Choose DB for PostgreSQL flexible server as your service type. Select your PostgreSQL flexible server todo-db-`<your suffix>`. Select postgres as your PostgreSQL database. Select SpringBoot as your Cient type.
+* Click next. Select System assigned managed identity for Authenication.
+* Click next until you find Review + Create.
+* Follow the instructions to finish creating the resource.
+
+Service Connector creates required App settings for this application: spring.datasource.azure.passwordless_enabled=true, spring.datasource.url=<postgresql-connection-string>,spring.datasource.username=<user-created-by-service-connector>.
 
 ## Start the Application on Java SE on App Service
 * Open a console and execute the following to log onto Azure.
