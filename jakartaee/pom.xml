@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.azure.samples</groupId>
@@ -69,6 +69,14 @@
                             <outputDirectory>${project.build.directory}/dependencies</outputDirectory>
                             <destFileName>postgresql.jar</destFileName>
                         </artifactItem>
+                        <artifactItem>
+                            <groupId>com.azure</groupId>
+                            <artifactId>azure-identity-extensions</artifactId>
+                            <version>1.1.22</version>
+                            <overWrite>true</overWrite>
+                            <outputDirectory>${project.build.directory}/dependencies</outputDirectory>
+                            <destFileName>azure-identity-extensions.jar</destFileName>
+                        </artifactItem>
                     </artifactItems>
                 </configuration>
             </plugin>
@@ -131,8 +139,8 @@
                 <artifactId>azure-webapp-maven-plugin</artifactId>
                 <version>2.13.0</version>
                 <configuration>
-                    <appName>todo-jboss-app</appName>
-                    <resourceGroup>todo-app-group-reza</resourceGroup>
+                    <appName>todo-jboss-final231</appName>
+                    <resourceGroup>db-rg</resourceGroup>
                     <javaVersion>Java 17</javaVersion>
                     <webContainer>JBossEAP 8</webContainer>
                     <appSettings>
@@ -153,11 +161,12 @@
                                 <directory>${project.build.directory}/dependencies</directory>
                                 <includes>
                                     <include>postgresql.jar</include>
+                                    <include>azure-identity-extensions.jar</include>
                                 </includes>
                             </resource>
                             <resource>
                                 <type>script</type>
-                                <directory>${project.basedir}/src/main/jboss</directory>
+                                <directory>${project.basedir}/src/main/jboss/azure</directory>
                                 <includes>
                                     <include>postgresql-module.xml</include>
                                     <include>configure-data-source.cli</include>
