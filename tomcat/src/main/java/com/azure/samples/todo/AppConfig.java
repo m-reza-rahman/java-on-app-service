@@ -40,7 +40,7 @@ public class AppConfig implements WebMvcConfigurer {
         dataSourceConfig.setDriverClassName(DB_DRIVER_CLASS);
         dataSourceConfig.setJdbcUrl(env.getRequiredProperty(PROPERTY_NAME_DB_URL));
         dataSourceConfig.setUsername(env.getRequiredProperty(PROPERTY_NAME_DB_USER));
-        dataSourceConfig.setPassword(env.getRequiredProperty(PROPERTY_NAME_DB_PASSWORD));
+        dataSourceConfig.setPassword(env.getProperty(PROPERTY_NAME_DB_PASSWORD, ""));
 
         return new HikariDataSource(dataSourceConfig);
     }

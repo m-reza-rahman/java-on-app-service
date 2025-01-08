@@ -54,7 +54,7 @@ this for the free tier where compute capacity is very limited.
 * Click next until you find Review + Create.
 * Follow the instructions to finish creating the resource.
 
-Service Connector creates required App settings for this application: spring.datasource.azure.passwordless_enabled=true, spring.datasource.url=<postgresql-connection-string>,spring.datasource.username=<user-created-by-service-connector>.
+Service Connector creates required App settings for this application: spring.datasource.azure.passwordless_enabled=true, spring.datasource.url=`<postgresql-connection-string>`,spring.datasource.username=`<user-created-by-service-connector>`.
 
 ## Start the Application on Java SE on App Service
 * Open a console and execute the following to log onto Azure.
