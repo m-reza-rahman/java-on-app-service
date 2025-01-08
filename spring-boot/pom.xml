@@ -72,6 +72,11 @@
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.azure.spring</groupId>
+            <artifactId>spring-cloud-azure-starter-jdbc-postgresql</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -186,24 +191,4 @@
             </plugin>
         </plugins>
     </build>
-    <profiles>
-        <!-- Local profile -->
-        <profile>
-            <id>local</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-
-        <!-- Azure profile -->
-        <profile>
-            <id>azure</id>
-            <dependencies>
-                <dependency>
-                    <groupId>com.azure.spring</groupId>
-                    <artifactId>spring-cloud-azure-starter-jdbc-postgresql</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
 </project>

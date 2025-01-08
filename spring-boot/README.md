@@ -100,7 +100,7 @@ the application to Java SE on App Service:
 * Use Maven to deploy the application from the `spring-boot` directory:
 
 ```
-mvn clean package -Pazure azure-webapp:deploy
+mvn clean package azure-webapp:deploy
 ```
 
 * Keep an eye on the console output. You will see the application deployment progress. It may take a while for the deployment to complete.
