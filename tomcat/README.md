@@ -47,11 +47,26 @@ turn off Application Insights. You should definitely do
 this for the free tier where compute capacity is very limited.
 * Finish creating the resource.
 
+## Connect PostgreSQL using Service Connector
+* In the portal home, go to 'All resources'. Find and click on the App Service instance named todo-spring-app. Open the Settings -> Service Connector panel.
+* Select Create. Choose DB for PostgreSQL flexible server as your service type. Select your PostgreSQL flexible server todo-db-`<your suffix>`. Select postgres as your PostgreSQL database. Select Java as your Cient type.
+* Click next. Select System assigned managed identity for Authenication.
+* Click next until you find Review + Create. After the validation successes, select Create On Cloud Shell to create resource.
+* Finish creating the resource.
+
+Note down the database user created by Service Connector, you can find it from log as the following output shows. In this example, the database user is `aad_postgresql_e2220`.
+
+```
+Enabling WebApp System Identity...
+Connecting to database...
+Running query: select * from pgaadauth_create_principal_with_oid('aad_postgresql_e2220', '8cf396b8-b4b1-4c94-a3fd-2d446829ada8', 'service', false, false);
+Running query: GRANT ALL PRIVILEGES ON DATABASE "postgres" TO "aad_postgresql_e2220";
+```
+
 ## Set up Environment Variables
-* In the portal home, go to 'All resources'. Find and click on the App Service instance named todo-tomcat-app. Open the 
-Settings -> Environment variables panel.
-* Add the following variables: POSTGRESQL_DB_URL=jdbc:postgresql://todo-db-`<your suffix>`.postgres.database.azure.com:5432/postgres, 
-POSTGRESQL_DB_USER=postgres, POSTGRESQL_DB_PASSWORD=Secret123!.
+* Open the Settings -> Environment variables panel.
+* Add the following variables: POSTGRESQL_DB_URL=jdbc:postgresql://todo-db-`<your suffix>`.postgres.database.azure.com:5432/postgres?authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin&sslmode=require, 
+POSTGRESQL_DB_USER=`<the-database-user-created-by-service-connector>`
 
 ## Start the Application on Tomcat on App Service
 * Open a console and execute the following to log onto Azure.
