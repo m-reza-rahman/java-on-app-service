@@ -49,6 +49,8 @@ this for the free tier where compute capacity is very limited.
 * Click next until you find Review + Create. After the validation successes, select Create On Cloud Shell to create resource.
 * Finish creating the resource.
 
+This application will drop and recreate the table todoitem and the sequence todoitem_seq in the PostgreSQL database, using the managed identity user created by the Service Connector. Ensure that the PostgreSQL database does not contain an existing schema, as the application will fail to deploy if the managed identity user is not the owner of the existing schema.
+
 ## Set up Environment Variables
 * Open the Settings -> Environment variables panel.
 * Select AZURE_MYSQL_CONNECTIONSTRING, scroll to the end of the value and append `&authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin`.
