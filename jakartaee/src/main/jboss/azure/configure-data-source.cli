@@ -1,0 +1,17 @@
+module add --name=postgresql --resources=${env.POSTGRESQL_RELATED_JARS} --dependencies=[javax.api,javax.transaction.api]
+
+/subsystem=datasources/jdbc-driver=postgresql:add(driver-name=postgresql,driver-module-name=postgresql,driver-class-name=org.postgresql.Driver,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)
+
+data-source add --name=PostgreDS \
+    --driver-name=postgresql \
+    --jndi-name=java:/jdbc/TodoAppDatabase \
+    --connection-url=${env.AZURE_POSTGRESQL_CONNECTIONSTRING} \
+    --use-ccm=true \
+    --max-pool-size=5 \
+    --blocking-timeout-wait-millis=5000 \
+    --enabled=true \
+    --driver-class=org.postgresql.Driver \
+    --exception-sorter-class-name=org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter \
+    --jta=true \
+    --use-java-context=true \
+    --valid-connection-checker-class-name=org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker

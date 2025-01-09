@@ -65,8 +65,12 @@ Running query: GRANT ALL PRIVILEGES ON DATABASE "postgres" TO "aad_postgresql_e2
 
 ## Set up Environment Variables
 * Open the Settings -> Environment variables panel.
-* Add the following variables: POSTGRESQL_DB_URL=jdbc:postgresql://todo-db-`<your suffix>`.postgres.database.azure.com:5432/postgres?authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin&sslmode=require, 
-POSTGRESQL_DB_USER=`<the-database-user-created-by-service-connector>`
+* Add the following variables: 
+
+| Variable Name | Value |
+|---------------|-------|
+| POSTGRESQL_DB_URL | jdbc:postgresql://todo-db-`<your suffix>`.postgres.database.azure.com:5432/postgres?authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin&sslmode=require |
+| POSTGRESQL_DB_USER | `<the-database-user-created-by-service-connector>` |
 
 ## Start the Application on Tomcat on App Service
 * Open a console and execute the following to log onto Azure.
@@ -79,41 +83,41 @@ POSTGRESQL_DB_USER=`<the-database-user-created-by-service-connector>`
 * You should note the pom.xml. In particular, we have included the configuration for the Azure Maven plugin we are going to use to deploy 
 the application to Tomcat on App Service:
 
-```xml
-<plugin>
-    <groupId>com.microsoft.azure</groupId>
-    <artifactId>azure-webapp-maven-plugin</artifactId>
-    <version>2.13.0</version>
-    <configuration>
-        <appName>todo-tomcat-app</appName>
-        <resourceGroup>todo-app-group-reza</resourceGroup>
-        <javaVersion>Java 17</javaVersion>
-        <webContainer>Tomcat 10.1</webContainer>
-        <appSettings>
-            <property>
-	            <name>WEBSITE_SKIP_AUTOCONFIGURE_DATABASE</name>
-	            <value>true</value>
-            </property>
-        </appSettings>
-        <deployment>
-            <resources>
-                <resource>
-                    <directory>${project.basedir}/target</directory>
-                    <includes>
-                        <include>todo.war</include>
-                    </includes>
-                </resource>
-            </resources>
-        </deployment>
-    </configuration>
-</plugin>
-```
+   ```xml
+   <plugin>
+       <groupId>com.microsoft.azure</groupId>
+       <artifactId>azure-webapp-maven-plugin</artifactId>
+       <version>2.13.0</version>
+       <configuration>
+           <appName>todo-tomcat-app</appName>
+           <resourceGroup>todo-app-group-reza</resourceGroup>
+           <javaVersion>Java 17</javaVersion>
+           <webContainer>Tomcat 10.1</webContainer>
+           <appSettings>
+               <property>
+   	            <name>WEBSITE_SKIP_AUTOCONFIGURE_DATABASE</name>
+   	            <value>true</value>
+               </property>
+           </appSettings>
+           <deployment>
+               <resources>
+                   <resource>
+                       <directory>${project.basedir}/target</directory>
+                       <includes>
+                           <include>todo.war</include>
+                       </includes>
+                   </resource>
+               </resources>
+           </deployment>
+       </configuration>
+   </plugin>
+   ```
 
 * Use Maven to deploy the application from the `tomcat` directory:
 
-```
-mvn clean package azure-webapp:deploy
-```
+   ```
+   mvn clean package azure-webapp:deploy
+   ```
 
 * Keep an eye on the console output. You will see the application deployment progress. It may take a while for the deployment to complete.
 * Once successfully deployed, you can access the application through its public endpoint. To get the public endpoint, go to 

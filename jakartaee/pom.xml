@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.azure.samples</groupId>
@@ -149,23 +149,15 @@
                     <deployment>
                         <resources>
                             <resource>
-                                <type>lib</type>
-                                <directory>${project.build.directory}/dependencies</directory>
-                                <includes>
-                                    <include>postgresql.jar</include>
-                                </includes>
-                            </resource>
-                            <resource>
                                 <type>script</type>
-                                <directory>${project.basedir}/src/main/jboss</directory>
+                                <directory>${project.basedir}/src/main/jboss/azure</directory>
                                 <includes>
-                                    <include>postgresql-module.xml</include>
                                     <include>configure-data-source.cli</include>
                                 </includes>
                             </resource>
                             <resource>
                                 <type>startup</type>
-                                <directory>${project.basedir}/src/main/jboss</directory>
+                                <directory>${project.basedir}/src/main/jboss/azure</directory>
                                 <includes>
                                     <include>startup.sh</include>
                                 </includes>
