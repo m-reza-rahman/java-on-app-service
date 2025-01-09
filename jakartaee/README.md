@@ -42,30 +42,16 @@ runtime stack and JBoss EAP 8 as the Java web server stack. You can optionally p
 this for the free tier where compute capacity is very limited.
 * Finish creating the resource.
 
-## Connect PostgreSQL using Service Connector
+## Connect PostgreSQL database using Service Connector
 * In the portal home, go to 'All resources'. Find and click on the App Service instance named todo-spring-app. Open the Settings -> Service Connector panel.
 * Select Create. Choose DB for PostgreSQL flexible server as your service type. Select your PostgreSQL flexible server todo-db-`<your suffix>`. Select postgres as your PostgreSQL database. Select Java as your Cient type.
 * Click next. Select System assigned managed identity for Authenication.
 * Click next until you find Review + Create. After the validation successes, select Create On Cloud Shell to create resource.
 * Finish creating the resource.
 
-Note down the database user created by Service Connector, you can find it from log as the following output shows. In this example, the database user is `aad_postgresql_e2220`.
-
-```
-Enabling WebApp System Identity...
-Connecting to database...
-Running query: select * from pgaadauth_create_principal_with_oid('aad_postgresql_e2220', '8cf396b8-b4b1-4c94-a3fd-2d446829ada8', 'service', false, false);
-Running query: GRANT ALL PRIVILEGES ON DATABASE "postgres" TO "aad_postgresql_e2220";
-```
-
 ## Set up Environment Variables
 * Open the Settings -> Environment variables panel.
-* Add the following variables: 
-
-| Variable Name | Value |
-|---------------|-------|
-| POSTGRESQL_DB_URL | jdbc:postgresql://todo-db-`<your suffix>`.postgres.database.azure.com:5432/postgres?authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin&sslmode=require |
-| POSTGRESQL_DB_USER | `<the-database-user-created-by-service-connector>` |
+* Select AZURE_MYSQL_CONNECTIONSTRING, scroll to the end of the value and append `&authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin`.
 
 ## Start the Application on JBoss EAP on App Service
 * Open a console and execute the following to log onto Azure.
@@ -102,23 +88,15 @@ the application to JBoss EAP on App Service:
            <deployment>
                <resources>
                    <resource>
-                       <type>lib</type>
-                       <directory>${project.build.directory}/dependencies</directory>
-                       <includes>
-                           <include>postgresql.jar</include>
-                       </includes>
-                   </resource>
-                   <resource>
                        <type>script</type>
-                       <directory>${project.basedir}/src/main/jboss</directory>
+                       <directory>${project.basedir}/src/main/jboss/azure</directory>
                        <includes>
-                           <include>postgresql-module.xml</include>
                            <include>configure-data-source.cli</include>
                        </includes>
                    </resource>
                    <resource>
                        <type>startup</type>
-                       <directory>${project.basedir}/src/main/jboss</directory>
+                       <directory>${project.basedir}/src/main/jboss/azure</directory>
                        <includes>
                            <include>startup.sh</include>
                        </includes>
