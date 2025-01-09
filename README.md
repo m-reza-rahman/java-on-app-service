@@ -38,6 +38,3 @@ following is just one logical sequence.
 * Deploying a Spring Boot application using Java SE on App Service. The [spring-boot](/spring-boot) folder shows how this is done.
 * Deploying a Jakarta EE application using JBoss EAP on App Service. The [jakartaee](/jakartaee) folder shows how this is done.
 * Deploying a Spring Framework application using Tomcat on App Service. The [tomcat](/tomcat) folder shows how this is done.
-
-## To Do
-* Switch to managed identity authentication.
