@@ -85,7 +85,6 @@ is not the owner of the existing schema.
     ```
     drop table if exists ToDoItem cascade;
     drop sequence if exists ToDoItem_SEQ;
-    quit;
     ```
 
 ## Set up Environment Variables
