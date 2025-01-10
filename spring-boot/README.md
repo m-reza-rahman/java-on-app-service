@@ -79,7 +79,6 @@ is not the owner of the existing schema.
     ```
     drop table if exists ToDoItem cascade;
     drop sequence if exists ToDoItem_SEQ;
-    quit;
     ```
 
 ## Start the Application on Java SE on App Service
