@@ -69,6 +69,25 @@ Running query: select * from pgaadauth_create_principal_with_oid('aad_postgresql
 Running query: GRANT ALL PRIVILEGES ON DATABASE "postgres" TO "aad_postgresql_e2220";
 ```
 
+## Clean the Database
+This application will drop and recreate the table `todoitem` and the sequence 
+`todoitem_seq` in the PostgreSQL database, using the managed identity user created by 
+the Service Connector. You need to ensure that the PostgreSQL database does not contain an 
+existing schema, as the application will fail to deploy if the managed identity user 
+is not the owner of the existing schema.
+
+* Open a [Cloud Shell](https://learn.microsoft.com/azure/cloud-shell/overview) from the Azure Portal.
+* Connect to the database:
+    ```
+    psql "host=todo-db-`<your suffix>`.postgres.database.azure.com port=5432 dbname=postgres user=postgres password=`<your password>`"
+    ```
+* Drop the existing resources:
+    ```
+    drop table if exists ToDoItem cascade;
+    drop sequence if exists ToDoItem_SEQ;
+    quit;
+    ```
+
 ## Set up Environment Variables
 * Open the Settings -> Environment variables panel.
 * Add the following variables: 

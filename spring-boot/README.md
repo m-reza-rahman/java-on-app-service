@@ -63,6 +63,25 @@ to Settings -> Environment variables.
 * spring.datasource.url=`<postgresql-connection-string>`
 * spring.datasource.username=`<user-created-by-service-connector>`
 
+## Clean the Database
+This application will drop and recreate the table `todoitem` and the sequence 
+`todoitem_seq` in the PostgreSQL database, using the managed identity user created by 
+the Service Connector. You need to ensure that the PostgreSQL database does not contain an 
+existing schema, as the application will fail to deploy if the managed identity user 
+is not the owner of the existing schema.
+
+* Open a [Cloud Shell](https://learn.microsoft.com/azure/cloud-shell/overview) from the Azure Portal.
+* Connect to the database:
+    ```
+    psql "host=todo-db-`<your suffix>`.postgres.database.azure.com port=5432 dbname=postgres user=postgres password=`<your password>`"
+    ```
+* Drop the existing resources:
+    ```
+    drop table if exists ToDoItem cascade;
+    drop sequence if exists ToDoItem_SEQ;
+    quit;
+    ```
+
 ## Start the Application on Java SE on App Service
 * Open a console and execute the following to log onto Azure.
 
