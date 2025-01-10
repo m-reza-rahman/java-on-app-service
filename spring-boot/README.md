@@ -53,14 +53,15 @@ instance named todo-spring-app. Open the Settings -> Service Connector panel.
 * Select Create. Choose 'DB for PostgreSQL flexible server' as your service type. 
 Select your PostgreSQL flexible server todo-db-`<your suffix>`. Select 'postgres' as 
 your PostgreSQL database. Select 'SpringBoot' as your Cient type.
-* Click next. Select System assigned managed identity for Authenication.
+* Click next. Select 'System assigned managed identity' for Authenication.
 * Click next until you find Review + Create.
 * Follow the instructions to finish creating the resource.
 
-The Service Connector creates the required App Settings for this application: 
-spring.datasource.azure.passwordless_enabled=true, 
-spring.datasource.url=`<postgresql-connection-string>`,
-spring.datasource.username=`<user-created-by-service-connector>`.
+The Service Connector creates the required App Settings for this application. You can confirm these by going 
+to Settings -> Environment variables.
+* spring.datasource.azure.passwordless_enabled=true
+* spring.datasource.url=`<postgresql-connection-string>`
+* spring.datasource.username=`<user-created-by-service-connector>`
 
 ## Start the Application on Java SE on App Service
 * Open a console and execute the following to log onto Azure.
