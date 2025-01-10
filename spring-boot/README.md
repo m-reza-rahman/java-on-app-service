@@ -47,14 +47,20 @@ turn off Application Insights. You should definitely do
 this for the free tier where compute capacity is very limited.
 * Finish creating the resource.
 
-## Connect PostgreSQL using Service Connector
-* In the portal home, go to 'All resources'. Find and click on the App Service instance named todo-spring-app. Open the Settings -> Service Connector panel.
-* Select Create. Choose DB for PostgreSQL flexible server as your service type. Select your PostgreSQL flexible server todo-db-`<your suffix>`. Select postgres as your PostgreSQL database. Select SpringBoot as your Cient type.
+## Connect PostgreSQL Using Service Connector
+* In the portal home, go to 'All resources'. Find and click on the App Service 
+instance named todo-spring-app. Open the Settings -> Service Connector panel.
+* Select Create. Choose 'DB for PostgreSQL flexible server' as your service type. 
+Select your PostgreSQL flexible server todo-db-`<your suffix>`. Select 'postgres' as 
+your PostgreSQL database. Select 'SpringBoot' as your Cient type.
 * Click next. Select System assigned managed identity for Authenication.
 * Click next until you find Review + Create.
 * Follow the instructions to finish creating the resource.
 
-Service Connector creates required App settings for this application: spring.datasource.azure.passwordless_enabled=true, spring.datasource.url=`<postgresql-connection-string>`,spring.datasource.username=`<user-created-by-service-connector>`.
+The Service Connector creates the required App Settings for this application: 
+spring.datasource.azure.passwordless_enabled=true, 
+spring.datasource.url=`<postgresql-connection-string>`,
+spring.datasource.username=`<user-created-by-service-connector>`.
 
 ## Start the Application on Java SE on App Service
 * Open a console and execute the following to log onto Azure.
@@ -63,50 +69,56 @@ Service Connector creates required App settings for this application: spring.dat
 	az login
 	```
 
-* Open the [pom.xml](pom.xml) file and replace occurrences of `reza` with `<your suffix>`.
-* You should note the pom.xml. In particular, we have included the configuration for the Azure Maven plugin we are going to use to deploy 
+* Open the [pom.xml](pom.xml) file and replace occurrences of `reza` 
+with `<your suffix>`.
+* You should note the pom.xml. In particular, we have included the configuration for 
+the Azure Maven plugin we are going to use to deploy 
 the application to Java SE on App Service:
 
-```xml
-<plugin>
-    <groupId>com.microsoft.azure</groupId>
-    <artifactId>azure-webapp-maven-plugin</artifactId>
-    <version>2.13.0</version>
-    <configuration>
-        <appName>todo-spring-app</appName>
-        <resourceGroup>todo-app-group-reza</resourceGroup>
-        <javaVersion>Java 17</javaVersion>
-        <webContainer>Java SE</webContainer>
-        <appSettings>
-            <property>
-	            <name>WEBSITE_SKIP_AUTOCONFIGURE_DATABASE</name>
-	            <value>true</value>
-            </property>
-        </appSettings>
-        <deployment>
-            <resources>
-                <resource>
-                    <directory>${project.basedir}/target</directory>
-                    <includes>
-                        <include>todo.jar</include>
-                    </includes>
-                </resource>
-            </resources>
-        </deployment>
-    </configuration>
-</plugin>
-```
+    ```xml
+    <plugin>
+        <groupId>com.microsoft.azure</groupId>
+        <artifactId>azure-webapp-maven-plugin</artifactId>
+        <version>2.13.0</version>
+        <configuration>
+            <appName>todo-spring-app</appName>
+            <resourceGroup>todo-app-group-reza</resourceGroup>
+            <javaVersion>Java 17</javaVersion>
+            <webContainer>Java SE</webContainer>
+            <appSettings>
+                <property>
+	                <name>WEBSITE_SKIP_AUTOCONFIGURE_DATABASE</name>
+	                <value>true</value>
+                </property>
+            </appSettings>
+            <deployment>
+                <resources>
+                    <resource>
+                        <directory>${project.basedir}/target</directory>
+                        <includes>
+                            <include>todo.jar</include>
+                        </includes>
+                    </resource>
+                </resources>
+            </deployment>
+        </configuration>
+    </plugin>
+    ```
 
 * Use Maven to deploy the application from the `spring-boot` directory:
 
-```
-mvn clean package azure-webapp:deploy
-```
+  ```
+  mvn clean package azure-webapp:deploy
+  ```
 
-* Keep an eye on the console output. You will see the application deployment progress. It may take a while for the deployment to complete.
-* Once successfully deployed, you can access the application through its public endpoint. To get the public endpoint, go to 
-portal home -> 'All resources'. Find and click on the App Service instance named todo-spring-app. Go to the overview panel and copy the 
-default domain. The application will be available at a URL like: https://todo-spring-app-suffix.azurewebsites.net.
+* Keep an eye on the console output. You will see the application deployment progress. 
+It may take a while for the deployment to complete.
+* Once successfully deployed, you can access the application through its public 
+endpoint. To get the public endpoint, go to 
+portal home -> 'All resources'. Find and click on the App Service instance named 
+todo-spring-app. Go to the overview panel and copy the 
+default domain. The application will be available at a URL 
+like: https://todo-spring-app-suffix.azurewebsites.net.
 * Once the application starts, you can test the REST service at the 
 URL: https://todo-spring-app-suffix.azurewebsites.net/resources/todo or via 
 the React UI at https://todo-spring-app-suffix.azurewebsites.net.
