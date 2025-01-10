@@ -1,7 +1,7 @@
 # This file is executed when your application is started.
 
-# The Service Connector has loaded JARs to /usr/local/appservice/jdbc/postgresql for PostgreSQL database connection using Managed Identity.
-# Ensure all the JARs are properly added to the classpath.
+# The Service Connector has loaded JARs to /usr/local/appservice/jdbc/postgresql for PostgreSQL database 
+# connection using Managed Identity. Ensure all the JARs are properly added to the classpath.
 
 POSTGRESQL_RELATED_JARS=":"
 for f in /usr/local/appservice/jdbc/postgresql/*.jar; do

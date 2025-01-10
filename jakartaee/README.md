@@ -33,7 +33,7 @@ curl -v -X POST http://localhost:8080/resources/todo -H "Content-Type: applicati
 curl http://localhost:8080/resources/todo
 ```
 
-## Setup JBoss EAP on App Service
+## Set up JBoss EAP on App Service
 * Go to the [Azure portal](http://portal.azure.com).
 * Select 'Create a resource'. In the search box, enter and select 'Web App'. Hit create.
 * Select todo-app-group-`<your suffix>` as the resource group and enter todo-jboss-app as application name. Choose Java 17 as your 
@@ -42,18 +42,23 @@ runtime stack and JBoss EAP 8 as the Java web server stack. You can optionally p
 this for the free tier where compute capacity is very limited.
 * Finish creating the resource.
 
-## Connect PostgreSQL database using Service Connector
-* In the portal home, go to 'All resources'. Find and click on the App Service instance named todo-spring-app. Open the Settings -> Service Connector panel.
-* Select Create. Choose DB for PostgreSQL flexible server as your service type. Select your PostgreSQL flexible server todo-db-`<your suffix>`. Select postgres as your PostgreSQL database. Select Java as your Cient type.
+## Connect PostgreSQL Using Service Connector
+* In the portal home, go to 'All resources'. Find and click on the App Service instance named todo-jboss-app. Open the 
+Settings -> Service Connector panel.
+* Select Create. Choose 'DB for PostgreSQL flexible server' as your service type. Select your PostgreSQL flexible server 
+todo-db-`<your suffix>`. Select 'postgres' as your PostgreSQL database. Select Java as your Cient type.
 * Click next. Select System assigned managed identity for Authenication.
-* Click next until you find Review + Create. After the validation successes, select Create On Cloud Shell to create resource.
+* Click next until you find Review + Create. After the validation succeeds, select 'Create On Cloud Shell' to create resource.
 * Finish creating the resource.
 
-This application will drop and recreate the table todoitem and the sequence todoitem_seq in the PostgreSQL database, using the managed identity user created by the Service Connector. Ensure that the PostgreSQL database does not contain an existing schema, as the application will fail to deploy if the managed identity user is not the owner of the existing schema.
+This application will drop and recreate the table todoitem and the sequence todoitem_seq in the PostgreSQL database, using the managed 
+identity user created by the Service Connector. Ensure that the PostgreSQL database does not contain an existing schema, as the 
+application will fail to deploy if the managed identity user is not the owner of the existing schema.
 
 ## Set up Environment Variables
 * Open the Settings -> Environment variables panel.
 * Select AZURE_MYSQL_CONNECTIONSTRING, scroll to the end of the value and append `&authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin`.
+* Make sure to save your changes.
 
 ## Start the Application on JBoss EAP on App Service
 * Open a console and execute the following to log onto Azure.

@@ -22,6 +22,7 @@ services:
       dockerfile: Dockerfile
     container_name: todo_app
     environment:
+      POSTGRESQL_DB_USER: postgres
       POSTGRESQL_DB_PASSWORD: admin
       POSTGRESQL_DB_URL: jdbc:postgresql://postgres:5432/todo_db
     ports:

@@ -1,5 +1,9 @@
-module add --name=org.postgresql --resources=/home/site/libs/postgresql.jar --module-xml=/home/site/scripts/postgresql-module.xml
+embed-server
+
+module add --name=org.postgresql --resources=/tmp/postgresql.jar --module-xml=/tmp/postgresql-module.xml
 
 /subsystem=datasources/jdbc-driver=postgresql:add(driver-name="postgresql",driver-module-name="org.postgresql",driver-class-name="org.postgresql.Driver",driver-xa-datasource-class-name="org.postgresql.xa.PGXADataSource")
 
 data-source add --name=PostgreDS --jndi-name="java:/jdbc/TodoAppDatabase" --driver-name="postgresql" --connection-url="${env.POSTGRESQL_DB_URL}" --user-name="${env.POSTGRESQL_DB_USER}" --password="${env.POSTGRESQL_DB_PASSWORD}" --use-java-context="true" --enabled="true"
+
+stop-embedded-server
