@@ -1,5 +1,6 @@
 # Deploying a Java/Jakarta EE Application to JBoss EAP on Azure App Service
-This demo shows how you can deploy a Java/Jakarta EE application to Azure using JBoss EAP on App Service.
+This demo shows how you can deploy a Java/Jakarta EE application to Azure using 
+JBoss EAP on App Service.
 
 ## Build the Project
 Navigate to the project source `jakartaee` and build the application:
@@ -35,29 +36,38 @@ curl http://localhost:8080/resources/todo
 
 ## Set up JBoss EAP on App Service
 * Go to the [Azure portal](http://portal.azure.com).
-* Select 'Create a resource'. In the search box, enter and select 'Web App'. Hit create.
-* Select todo-app-group-`<your suffix>` as the resource group and enter todo-jboss-app as application name. Choose Java 17 as your 
-runtime stack and JBoss EAP 8 as the Java web server stack. You can optionally pick the free tier for your pricing plan.
-* Click next until you reach the monitoring tab. If you want faster deployment, turn off Application Insights. You should definitely do 
-this for the free tier where compute capacity is very limited.
+* Select 'Create a resource'. In the search box, enter and select 'Web App'. 
+Hit create.
+* Select todo-app-group-`<your suffix>` as the resource group and enter 
+todo-jboss-app as application name. Choose Java 17 as your runtime stack and 
+JBoss EAP 8 as the Java web server stack. You can optionally pick the free tier for 
+your pricing plan.
+* Click next until you reach the monitoring tab. If you want faster deployment, 
+turn off Application Insights. You should definitely do this for the free tier where 
+compute capacity is very limited.
 * Finish creating the resource.
 
 ## Connect PostgreSQL Using Service Connector
-* In the portal home, go to 'All resources'. Find and click on the App Service instance named todo-jboss-app. Open the 
-Settings -> Service Connector panel.
-* Select Create. Choose 'DB for PostgreSQL flexible server' as your service type. Select your PostgreSQL flexible server 
-todo-db-`<your suffix>`. Select 'postgres' as your PostgreSQL database. Select Java as your Cient type.
-* Click next. Select System assigned managed identity for Authenication.
-* Click next until you find Review + Create. After the validation succeeds, select 'Create On Cloud Shell' to create resource.
+* In the portal home, go to 'All resources'. Find and click on the App Service 
+instance named todo-jboss-app. Open the Settings -> Service Connector panel.
+* Select Create. Choose 'DB for PostgreSQL flexible server' as your service type. 
+Select your PostgreSQL flexible server todo-db-`<your suffix>`. Select 'postgres' 
+as your PostgreSQL database. Select Java as your Cient type.
+* Click next. Select 'System assigned managed identity' for Authenication.
+* Click next until you find Review + Create. After the validation succeeds, 
+select 'Create On Cloud Shell' to create resource.
 * Finish creating the resource.
 
-This application will drop and recreate the table todoitem and the sequence todoitem_seq in the PostgreSQL database, using the managed 
-identity user created by the Service Connector. Ensure that the PostgreSQL database does not contain an existing schema, as the 
-application will fail to deploy if the managed identity user is not the owner of the existing schema.
+This application will drop and recreate the table todoitem and the sequence 
+todoitem_seq in the PostgreSQL database, using the managed identity user created by 
+the Service Connector. Ensure that the PostgreSQL database does not contain an 
+existing schema, as the application will fail to deploy if the managed identity user 
+is not the owner of the existing schema.
 
 ## Set up Environment Variables
 * Open the Settings -> Environment variables panel.
-* Select AZURE_MYSQL_CONNECTIONSTRING, scroll to the end of the value and append `&authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin`.
+* Select AZURE_MYSQL_CONNECTIONSTRING, scroll to the end of the value and 
+append `&authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin`.
 * Make sure to save your changes.
 
 ## Start the Application on JBoss EAP on App Service
@@ -67,9 +77,11 @@ application will fail to deploy if the managed identity user is not the owner of
 	az login
 	```
 
-* Open the [pom.xml](pom.xml) file and replace occurrences of `reza` with `<your suffix>`.
-* You should note the pom.xml. In particular, we have included the configuration for the Azure Maven plugin we are going to use to deploy 
-the application to JBoss EAP on App Service:
+* Open the [pom.xml](pom.xml) file and replace occurrences of `reza` 
+with `<your suffix>`.
+* You should note the pom.xml. In particular, we have included the configuration for 
+the Azure Maven plugin we are going to use to deploy the application to JBoss EAP on 
+App Service:
 
    ```xml
    <plugin>
@@ -126,10 +138,13 @@ the application to JBoss EAP on App Service:
    mvn clean package azure-webapp:deploy
    ```
 
-* Keep an eye on the console output. You will see the application deployment progress. It may take a while for the deployment to complete.
-* Once successfully deployed, you can access the application through its public endpoint. To get the public endpoint, go to 
-portal home -> 'All resources'. Find and click on the App Service instance named todo-jboss-app. Go to the overview panel and copy the 
-default domain. The application will be available at a URL like: https://todo-jboss-app-suffix.azurewebsites.net.
+* Keep an eye on the console output. You will see the application deployment progress. 
+It may take a while for the deployment to complete.
+* Once successfully deployed, you can access the application through its public 
+endpoint. To get the public endpoint, go to portal home -> 'All resources'. Find and 
+click on the App Service instance named todo-jboss-app. Go to the overview panel and 
+copy the default domain. The application will be available at a URL 
+like: https://todo-jboss-app-suffix.azurewebsites.net.
 * Once the application starts, you can test the REST service at the 
 URL: https://todo-jboss-app-suffix.azurewebsites.net/resources/todo or via 
 the React UI at https://todo-jboss-app-suffix.azurewebsites.net.
