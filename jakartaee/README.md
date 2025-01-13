@@ -58,6 +58,20 @@ as your PostgreSQL database. Select Java as your Cient type.
 select 'Create On Cloud Shell' to create resource.
 * Finish creating the resource.
 
+Note down the database user created by the Service Connector, you can find it from 
+the log as the following output shows. In this example, the database user is 
+`aad_postgresql_e2220`.
+
+```
+Enabling WebApp System Identity...
+Connecting to database...
+Running query: select * from pgaadauth_create_principal_with_oid('aad_postgresql_e2220', '8cf396b8-b4b1-4c94-a3fd-2d446829ada8', 'service', false, false);
+Running query: GRANT ALL PRIVILEGES ON DATABASE "postgres" TO "aad_postgresql_e2220";
+Running query: GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO "aad_postgresql_e2220";
+Running query: GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO "aad_postgresql_e2220";
+Running query: GRANT CREATE ON SCHEMA public TO "aad_postgresql_e2220";
+```
+
 ## Clean the Database
 This application will drop and recreate the table `todoitem` and the sequence 
 `todoitem_seq` in the PostgreSQL database, using the managed identity user created by 
@@ -65,21 +79,27 @@ the Service Connector. You need to ensure that the PostgreSQL database does not 
 existing schema, as the application will fail to deploy if the managed identity user 
 is not the owner of the existing schema.
 
-* Open a [Cloud Shell](https://learn.microsoft.com/azure/cloud-shell/overview) from the Azure Portal.
-* Connect to the database:
-    ```
-    psql "host=todo-db-`<your suffix>`.postgres.database.azure.com port=5432 dbname=postgres user=postgres password=`<your password>`"
-    ```
-* Drop the existing resources:
-    ```
-    drop table if exists ToDoItem cascade;
-    drop sequence if exists ToDoItem_SEQ;
-    ```
+Open a [Cloud Shell](https://learn.microsoft.com/azure/cloud-shell/overview) from the Azure Portal.
+
+Fill in `<your suffix>` and run the following commands to clean up existing schema.
+
+```bash
+export DATABASE_SERVER_NAME=todo-db-<your suffix>
+export CURRENT_USER=$(az account show --query user.name --output tsv)
+export RDBMS_ACCESS_TOKEN=$(az account get-access-token --resource-type oss-rdbms --query accessToken --output tsv)
+```
+
+```bash
+az config set extension.use_dynamic_install=yes_without_prompt
+
+az postgres flexible-server execute --verbose --name ${DATABASE_SERVER_NAME} --admin-user ${CURRENT_USER} --admin-password ${RDBMS_ACCESS_TOKEN} --querytext "drop table if exists ToDoItem cascade;drop sequence if exists ToDoItem_SEQ;"
+```
 
 ## Set up Environment Variables
 * Open the Settings -> Environment variables panel.
 * Select AZURE_MYSQL_CONNECTIONSTRING, scroll to the end of the value and 
 append `&authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin`.
+* Doule check the value of AZURE_MYSQL_CONNECTIONSTRING, ensure the value looks similar to `jdbc:postgresql://todo-db-<your suffix>.postgres.database.azure.com:5432/postgres?sslmode=require&user=<the-database-user-created-by-service-connector>&authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin`.
 * Make sure to save your changes.
 
 ## Start the Application on JBoss EAP on App Service

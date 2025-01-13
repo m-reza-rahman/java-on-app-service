@@ -47,6 +47,20 @@ turn off Application Insights. You should definitely do
 this for the free tier where compute capacity is very limited.
 * Finish creating the resource.
 
+Note down the database user created by the Service Connector, you can find it from 
+the log as the following output shows. In this example, the database user is 
+`aad_postgresql_e2220`.
+
+```
+Enabling WebApp System Identity...
+Connecting to database...
+Running query: select * from pgaadauth_create_principal_with_oid('aad_postgresql_e2220', '8cf396b8-b4b1-4c94-a3fd-2d446829ada8', 'service', false, false);
+Running query: GRANT ALL PRIVILEGES ON DATABASE "postgres" TO "aad_postgresql_e2220";
+Running query: GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO "aad_postgresql_e2220";
+Running query: GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO "aad_postgresql_e2220";
+Running query: GRANT CREATE ON SCHEMA public TO "aad_postgresql_e2220";
+```
+
 ## Connect PostgreSQL Using Service Connector
 * In the portal home, go to 'All resources'. Find and click on the App Service 
 instance named todo-spring-app. Open the Settings -> Service Connector panel.
@@ -59,9 +73,12 @@ your PostgreSQL database. Select 'SpringBoot' as your Cient type.
 
 The Service Connector creates the required App Settings for this application. You can confirm these by going 
 to Settings -> Environment variables.
-* spring.datasource.azure.passwordless_enabled=true
-* spring.datasource.url=`<postgresql-connection-string>`
-* spring.datasource.username=`<user-created-by-service-connector>`
+
+| Variable Name | Value |
+|---------------|-------|
+| `spring.datasource.azure.passwordless_enabled` | `true` |
+| `spring.datasource.url` | `<postgresql-connection-string>`. Ensure the value looks similiar to `jdbc:postgresql://todo-db-<your suffix>.postgres.database.azure.com:5432/postgres?sslmode=require`. |
+| `spring.datasource.username` | `<user-created-by-service-connector>`. Ensure the username matches the value you recorded in the previous section. |
 
 ## Clean the Database
 This application will drop and recreate the table `todoitem` and the sequence 
@@ -70,16 +87,21 @@ the Service Connector. You need to ensure that the PostgreSQL database does not 
 existing schema, as the application will fail to deploy if the managed identity user 
 is not the owner of the existing schema.
 
-* Open a [Cloud Shell](https://learn.microsoft.com/azure/cloud-shell/overview) from the Azure Portal.
-* Connect to the database:
-    ```
-    psql "host=todo-db-`<your suffix>`.postgres.database.azure.com port=5432 dbname=postgres user=postgres password=`<your password>`"
-    ```
-* Drop the existing resources:
-    ```
-    drop table if exists ToDoItem cascade;
-    drop sequence if exists ToDoItem_SEQ;
-    ```
+Open a [Cloud Shell](https://learn.microsoft.com/azure/cloud-shell/overview) from the Azure Portal.
+
+Fill in `<your suffix>` and run the following command to clean up existing schema.
+
+```bash
+export DATABASE_SERVER_NAME=todo-db-<your suffix>
+export CURRENT_USER=$(az account show --query user.name --output tsv)
+export RDBMS_ACCESS_TOKEN=$(az account get-access-token --resource-type oss-rdbms --query accessToken --output tsv)
+```
+
+```bash
+az config set extension.use_dynamic_install=yes_without_prompt
+
+az postgres flexible-server execute --verbose --name ${DATABASE_SERVER_NAME} --admin-user ${CURRENT_USER} --admin-password ${RDBMS_ACCESS_TOKEN} --querytext "drop table if exists ToDoItem cascade;drop sequence if exists ToDoItem_SEQ;"
+```
 
 ## Start the Application on Java SE on App Service
 * Open a console and execute the following to log onto Azure.
