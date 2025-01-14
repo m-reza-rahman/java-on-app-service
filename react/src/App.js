@@ -56,10 +56,6 @@ const ToDoApp = () => {
       });
   };
 
-  const revertEditing = () => {
-    setItemToEdit(null);
-  };
-
   const removeItem = (item) => {
     ToDoService.removeItem(item.id)
       .then(() => {
@@ -93,7 +89,6 @@ const ToDoApp = () => {
               itemToEdit={itemToEdit}
               editItem={editItem}
               commitEditItem={commitEditItem}
-              revertEditing={revertEditing}
               removeItem={removeItem}
             />
             <span className="item-count-label">

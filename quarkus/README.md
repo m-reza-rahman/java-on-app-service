@@ -1,23 +1,15 @@
-# Deploying a Spring Boot Application to Java SE on Azure App Service
-This demo shows how you can deploy a Spring Boot application to Azure using 
+# Deploying a Quarkus Application to Java SE on Azure App Service
+This demo shows how you can deploy a Quarkus application to Azure using 
 Java SE on App Service.
 
-## Build the Project
-Navigate to the project source `spring-boot` and build the application:
-
-```
-mvn clean package
-```
-
 ## Run Locally (Optional)
-Start the application and PostgreSQL database using Docker Compose:
 
-```
-# Best to run these to avoid resource conflicts
-# docker system prune -a
-# docker volume prune -a
-# docker-compose down -v
-docker-compose up --build
+You can run the application using Quarkus development mode.
+
+Navigate to the project source `quarkus` and run the application with Quarkus development mode:
+
+```bash
+mvn quarkus:dev
 ```
 
 Once the application starts, it will be accessible at http://localhost:8080.
@@ -39,7 +31,7 @@ curl http://localhost:8080/resources/todo
 * Select 'Create a resource'. In the search box, enter and select 'Web App'. 
 Hit create.
 * Select todo-app-group-`<your suffix>` as the resource group and enter 
-todo-spring-app as application name. Choose Java 17 as your 
+todo-quarkus-app as application name. Choose Java 17 as your 
 runtime stack and Java SE as the Java web server stack. You can optionally pick the 
 free tier for your pricing plan.
 * Click next until you reach the monitoring tab. If you want faster deployment, 
@@ -49,10 +41,10 @@ this for the free tier where compute capacity is very limited.
 
 ## Connect PostgreSQL Using Service Connector
 * In the portal home, go to 'All resources'. Find and click on the App Service 
-instance named todo-spring-app. Open the Settings -> Service Connector panel.
+instance named todo-quarkus-app. Open the Settings -> Service Connector panel.
 * Select Create. Choose 'DB for PostgreSQL flexible server' as your service type. 
 Select your PostgreSQL flexible server todo-db-`<your suffix>`. Select 'postgres' as 
-your PostgreSQL database. Select 'SpringBoot' as your Cient type.
+your PostgreSQL database. Select 'Java' as your Cient type.
 * Click next. Select 'System assigned managed identity' for Authenication.
 * Click next until you find Review + Create.
 * Follow the instructions to finish creating the resource.
@@ -71,14 +63,14 @@ Running query: GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO "aad_po
 Running query: GRANT CREATE ON SCHEMA public TO "aad_postgresql_e2220";
 ```
 
-The Service Connector creates the required App Settings for this application. You can confirm these by going 
-to Settings -> Environment variables.
+## Set up Environment Variables
+* Open the Settings -> Environment variables panel.
+* Add the following variables: 
 
 | Variable Name | Value |
 |---------------|-------|
-| `spring.datasource.azure.passwordless_enabled` | `true` |
-| `spring.datasource.url` | `<postgresql-connection-string>`. Ensure the value looks similiar to `jdbc:postgresql://todo-db-<your suffix>.postgres.database.azure.com:5432/postgres?sslmode=require`. |
-| `spring.datasource.username` | `<user-created-by-service-connector>`. Ensure the username matches the value you recorded in the previous section. |
+| `quarkus.datasource.jdbc.url` | jdbc:postgresql://todo-db-`<your suffix>`.postgres.database.azure.com:5432/postgres?authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin&sslmode=require |
+| `quarkus.datasource.username` | `<user-created-by-service-connector>` |
 
 ## Clean the Database
 This application will drop and recreate the table `todoitem` and the sequence 
@@ -122,14 +114,22 @@ the application to Java SE on App Service:
         <artifactId>azure-webapp-maven-plugin</artifactId>
         <version>2.13.0</version>
         <configuration>
-            <appName>todo-spring-app</appName>
+            <appName>todo-quarkus-app</appName>
             <resourceGroup>todo-app-group-reza</resourceGroup>
             <javaVersion>Java 17</javaVersion>
             <webContainer>Java SE</webContainer>
             <appSettings>
                 <property>
-	                <name>WEBSITE_SKIP_AUTOCONFIGURE_DATABASE</name>
-	                <value>true</value>
+                    <name>PORT</name>
+                    <value>8080</value>
+                </property>
+                <property>
+                    <name>WEBSITES_PORT</name>
+                    <value>8080</value>
+                </property>
+                <property>
+                    <name>WEBSITE_SKIP_AUTOCONFIGURE_DATABASE</name>
+                    <value>true</value>
                 </property>
             </appSettings>
             <deployment>
@@ -137,7 +137,7 @@ the application to Java SE on App Service:
                     <resource>
                         <directory>${project.basedir}/target</directory>
                         <includes>
-                            <include>todo.jar</include>
+                            <include>*.jar</include>
                         </includes>
                     </resource>
                 </resources>
@@ -146,7 +146,7 @@ the application to Java SE on App Service:
     </plugin>
     ```
 
-* Use Maven to deploy the application from the `spring-boot` directory:
+* Use Maven to deploy the application from the `quarkus` directory:
 
   ```
   mvn clean package azure-webapp:deploy
@@ -157,9 +157,9 @@ It may take a while for the deployment to complete.
 * Once successfully deployed, you can access the application through its public 
 endpoint. To get the public endpoint, go to 
 portal home -> 'All resources'. Find and click on the App Service instance named 
-todo-spring-app. Go to the overview panel and copy the 
+todo-quarkus-app. Go to the overview panel and copy the 
 default domain. The application will be available at a URL 
-like: https://todo-spring-app-suffix.azurewebsites.net.
+like: https://todo-quarkus-app-suffix.azurewebsites.net.
 * Once the application starts, you can test the REST service at the 
-URL: https://todo-spring-app-suffix.azurewebsites.net/resources/todo or via 
-the React UI at https://todo-spring-app-suffix.azurewebsites.net.
+URL: https://todo-quarkus-app-suffix.azurewebsites.net/resources/todo or via 
+the React UI at https://todo-quarkus-app-suffix.azurewebsites.net.
