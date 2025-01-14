@@ -1,5 +1,5 @@
 # Deploying Java Applications to Azure App Service
-This demo shows how you can deploy Spring Boot, Spring Framework, Hibernate, Tomcat, 
+This demo shows how you can deploy Quarkus, Spring Boot, Spring Framework, Hibernate, Tomcat, 
 Java EE, Jakarta EE, and JBoss EAP applications to App Service (App Service is the 
 premier PaaS platform on Azure). It is the demo for 
 [this](https://sessionize.com/s/reza-rahman/spring-quarkus-tomcat-jakarta-ee-hyperscale-paas-o/122890) 
@@ -45,6 +45,8 @@ Each of the parts of this repository can be run independently, which means you c
 directly to the parts that interest you most. The following is just one logical 
 sequence.
 
+* Deploying a Quarkus application using Java SE on App Service. 
+The [quarkus](/quarkus) folder shows how this is done.
 * Deploying a Spring Boot application using Java SE on App Service. 
 The [spring-boot](/spring-boot) folder shows how this is done.
 * Deploying a Jakarta EE application using JBoss EAP on App Service. 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function TodoItem({ item, itemToEdit, editItem, commitEditItem, revertEditing, removeItem }) {
+function TodoItem({ item, itemToEdit, editItem, commitEditItem, removeItem }) {
   const [description, setDescription] = useState(item.description);
   const [completed, setCompleted] = useState(item.completed);
   const [isEscapePressed, setIsEscapePressed] = useState(false);
@@ -32,13 +32,7 @@ function TodoItem({ item, itemToEdit, editItem, commitEditItem, revertEditing, r
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Escape') {
-      e.stopPropagation(); // Stop the event from propagating
-      e.preventDefault();
-      setIsEscapePressed(true);
-      revertEditing();
-    }
-    else if (e.key === 'Enter') {
+    if (e.key === 'Enter') {
       e.stopPropagation(); // Stop the event from propagating
       e.preventDefault();
       setIsEscapePressed(true);
