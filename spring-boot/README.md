@@ -89,7 +89,7 @@ is not the owner of the existing schema.
 
 Open a [Cloud Shell](https://learn.microsoft.com/azure/cloud-shell/overview) from the Azure Portal.
 
-Fill in `<your suffix>` and run the following command to clean up existing schema.
+Fill in `<your suffix>` and run the following command to clean up any existing schema.
 
 ```bash
 export DATABASE_SERVER_NAME=todo-db-<your suffix>
