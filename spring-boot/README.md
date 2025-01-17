@@ -87,21 +87,16 @@ the Service Connector. You need to ensure that the PostgreSQL database does not 
 existing schema, as the application will fail to deploy if the managed identity user 
 is not the owner of the existing schema.
 
-Open a [Cloud Shell](https://learn.microsoft.com/azure/cloud-shell/overview) from the Azure Portal.
-
-Fill in `<your suffix>` and run the following command to clean up any existing schema.
-
-```bash
-export DATABASE_SERVER_NAME=todo-db-<your suffix>
-export CURRENT_USER=$(az account show --query user.name --output tsv)
-export RDBMS_ACCESS_TOKEN=$(az account get-access-token --resource-type oss-rdbms --query accessToken --output tsv)
-```
-
-```bash
-az config set extension.use_dynamic_install=yes_without_prompt
-
-az postgres flexible-server execute --verbose --name ${DATABASE_SERVER_NAME} --admin-user ${CURRENT_USER} --admin-password ${RDBMS_ACCESS_TOKEN} --querytext "drop table if exists ToDoItem cascade;drop sequence if exists ToDoItem_SEQ;"
-```
+* Open a [Cloud Shell](https://learn.microsoft.com/azure/cloud-shell/overview) from the Azure Portal.
+* Connect to the database:
+  ```
+  psql "host=todo-db-`<your suffix>`.postgres.database.azure.com port=5432 dbname=postgres user=postgres password=`<your password>`"
+  ```
+* Drop the existing resources:
+  ```
+  drop table if exists ToDoItem cascade;
+  drop sequence if exists ToDoItem_SEQ;
+  ```
 
 ## Start the Application on Java SE on App Service
 * Open a console and execute the following to log onto Azure.
