@@ -72,7 +72,7 @@ Running query: GRANT CREATE ON SCHEMA public TO "aad_postgresql_e2220";
 ```
 
 The Service Connector creates the required App Settings for this application. You need to confirm these by going 
-to Settings -> Environment variables, updating them to the correct values if required.
+to Settings -> Environment variables, updating them to the correct values if required. Don't forget to apply any required updates.
 
 | Variable Name | Value |
 |---------------|-------|
