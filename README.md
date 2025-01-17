@@ -30,8 +30,9 @@ free for one year [here](https://azure.microsoft.com/en-us/free).
 (the suffix could be your first name such as "reza").
 Specify the Server name to be todo-db-`<your suffix>` (the suffix could be your 
 first name such as "reza").
-* Choose Microsoft Entra authentication. Set the Microsoft Entra admin 
-to your working Azure user.
+* Choose PostgreSQL and Microsoft Entra authentication. Set the Microsoft Entra admin 
+to your working Azure user. Specify the login name to be postgres. 
+Specify a suitable password.
 * Click Next to go to the Networking tab.
 * Enable access to Azure services.
 * Create the resource. It will take a moment for the database to deploy and be ready 
