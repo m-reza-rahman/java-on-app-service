@@ -78,7 +78,7 @@ to Settings -> Environment variables, updating them to the correct values if req
 |---------------|-------|
 | `spring.datasource.azure.passwordless_enabled` | `true` |
 | `spring.datasource.url` | `<postgresql-connection-string>`. Ensure the value looks similiar to `jdbc:postgresql://todo-db-<your suffix>.postgres.database.azure.com:5432/postgres?sslmode=require`. |
-| `spring.datasource.username` | `<user-created-by-service-connector>`. Ensure the username matches the value you recorded in the previous section. |
+| `spring.datasource.username` | `<user-created-by-service-connector>`. Ensure the username matches the value you recorded. |
 
 ## Clean the Database
 This application will drop and recreate the table `todoitem` and the sequence 
