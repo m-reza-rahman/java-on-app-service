@@ -6,7 +6,8 @@ Java SE on App Service.
 
 You can run the application using Quarkus development mode.
 
-Navigate to the project source `quarkus` and run the application with Quarkus development mode:
+Navigate to the project source `quarkus` and run the application with Quarkus 
+development mode:
 
 ```bash
 mvn quarkus:dev
@@ -132,7 +133,7 @@ the application to Java SE on App Service:
                     <resource>
                         <directory>${project.basedir}/target</directory>
                         <includes>
-                            <include>*.jar</include>
+                            <include>todo-runner.jar</include>
                         </includes>
                     </resource>
                 </resources>

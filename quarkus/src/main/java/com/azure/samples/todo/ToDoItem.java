@@ -1,16 +1,11 @@
 package com.azure.samples.todo;
 
-import java.io.Serializable;
-import java.util.List;
-
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 @Entity
 @Table(name = "ToDoItem")
@@ -18,10 +13,10 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
         name = "ToDoItem.findAll",
         query = "SELECT i FROM ToDoItem i")
 public class ToDoItem extends PanacheEntity {
-    private static final long serialVersionUID = 1L;
 
     @NotBlank(message = "Item description cannot be blank")
-    @Size(min = 5, max = 110, message = "Item description must be between 5 and 110 characters")
+    @Size(min = 5, max = 110, 
+        message = "Item description must be between 5 and 110 characters")
     private String description;
 
     private boolean completed;

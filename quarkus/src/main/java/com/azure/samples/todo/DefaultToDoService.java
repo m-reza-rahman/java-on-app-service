@@ -1,6 +1,7 @@
 package com.azure.samples.todo;
 
 import java.util.List;
+
 import org.jboss.logging.Logger;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -28,6 +29,7 @@ public class DefaultToDoService implements ToDoService {
     public void updateToDoItem(ToDoItem item) {
         logger.info("Updating item: " + item);
         ToDoItem existingItem = repository.findById(item.getId());
+        
         if (existingItem == null) {
             throw new IllegalArgumentException("Item with ID " + item.getId() + " does not exist");
         }

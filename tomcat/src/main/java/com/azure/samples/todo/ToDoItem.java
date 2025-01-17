@@ -23,7 +23,8 @@ public class ToDoItem implements Serializable {
     private Long id;
 
     @NotBlank(message = "Item description cannot be blank")
-    @Size(min = 5, max = 110, message = "Item description must be between 5 and 110 characters")
+    @Size(min = 5, max = 110, 
+        message = "Item description must be between 5 and 110 characters")
     private String description;
 
     private boolean completed;

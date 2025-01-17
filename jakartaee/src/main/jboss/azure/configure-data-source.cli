@@ -2,7 +2,8 @@ module add --name=postgresql --resources=${env.POSTGRESQL_RELATED_JARS} --depend
 
 /subsystem=datasources/jdbc-driver=postgresql:add(driver-name=postgresql,driver-module-name=postgresql,driver-class-name=org.postgresql.Driver,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)
 
-data-source add --name=PostgreDS \
+data-source add
+    --name=PostgreDS \
     --driver-name=postgresql \
     --jndi-name=java:/jdbc/TodoAppDatabase \
     --connection-url=${env.AZURE_POSTGRESQL_CONNECTIONSTRING} \

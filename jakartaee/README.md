@@ -94,7 +94,8 @@ is not the owner of the existing schema.
 * Open the Settings -> Environment variables panel.
 * Select AZURE_POSTGRESQL_CONNECTIONSTRING, scroll to the end of the value and 
 append `&authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin`.
-* Doule check the value of AZURE_POSTGRESQL_CONNECTIONSTRING, ensure the value looks similar to `jdbc:postgresql://todo-db-<your suffix>.postgres.database.azure.com:5432/postgres?sslmode=require&user=<the-database-user-created-by-service-connector>&authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin`.
+* Doule check the value of AZURE_POSTGRESQL_CONNECTIONSTRING, ensure the value looks 
+similar to `jdbc:postgresql://todo-db-<your suffix>.postgres.database.azure.com:5432/postgres?sslmode=require&user=<the-database-user-created-by-service-connector>&authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin`.
 * Make sure to save your changes.
 
 ## Start the Application on JBoss EAP on App Service
