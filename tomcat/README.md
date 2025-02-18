@@ -91,6 +91,7 @@ is not the owner of the existing schema.
   ```
 
 ## Set up Environment Variables
+* In the portal home, go to 'All resources'. Find and click on the App Service instance named todo-tomcat-app.
 * Open the Settings -> Environment variables panel.
 * Add the following variables: 
 
