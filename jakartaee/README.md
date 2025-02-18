@@ -91,6 +91,7 @@ is not the owner of the existing schema.
   ```
 
 ## Set up Environment Variables
+* In the portal home, go to 'All resources'. Find and click on the App Service instance named todo-jboss-app.
 * Open the Settings -> Environment variables panel.
 * Select AZURE_POSTGRESQL_CONNECTIONSTRING, scroll to the end of the value and 
 append `&authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin`.
