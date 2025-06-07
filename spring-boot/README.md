@@ -52,7 +52,7 @@ this for the free tier where compute capacity is very limited.
 instance named todo-spring-app. Open the Settings -> Service Connector panel.
 * Select Create. Choose 'DB for PostgreSQL flexible server' as your service type. 
 Select your PostgreSQL flexible server todo-db-`<your suffix>`. Select 'postgres' as 
-your PostgreSQL database. Select 'SpringBoot' as your Cient type.
+your PostgreSQL database. Select 'SpringBoot' as your Client type.
 * Click next. Select 'System assigned managed identity' for Authenication.
 * Click next until you find Review + Create.
 * Follow the instructions to finish creating the resource.
