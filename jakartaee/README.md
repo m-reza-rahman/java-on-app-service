@@ -52,7 +52,7 @@ compute capacity is very limited.
 instance named todo-jboss-app. Open the Settings -> Service Connector panel.
 * Select Create. Choose 'DB for PostgreSQL flexible server' as your service type. 
 Select your PostgreSQL flexible server todo-db-`<your suffix>`. Select 'postgres' 
-as your PostgreSQL database. Select Java as your Cient type.
+as your PostgreSQL database. Select Java as your Client type.
 * Click next. Select 'System assigned managed identity' for Authenication.
 * Click next until you find Review + Create. After the validation succeeds, 
 select 'Create On Cloud Shell' to create resource.
